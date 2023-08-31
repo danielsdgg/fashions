@@ -7,6 +7,9 @@ name = "pypi"
 pydantic = "*"
 uvicorn = "*"
 fastapi = "*"
+sqlalchemy = "*"
+alembic = "*"
+faker = "*"
 
 [dev-packages]
 
