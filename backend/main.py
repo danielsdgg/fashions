@@ -165,9 +165,9 @@ def root():
 
 # creating a component that returns all superadmins
 @app.get("/superadmin")
-def get_all_supers() -> List[SuperadminSchema]:
-    super = session.query(Superadmin).all()
-    return super
+def get_all_supers():
+    superadmin = session.query(Superadmin).all()
+    return {"superadmins":superadmin}
 
 # creating a component that returns all admins
 @app.get('/admin')

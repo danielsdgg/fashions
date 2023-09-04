@@ -1,8 +1,8 @@
-"""create fashion
+"""test
 
-Revision ID: 034af9a2a366
+Revision ID: a9597cb3f42a
 Revises: 
-Create Date: 2023-08-31 16:35:45.790519
+Create Date: 2023-09-04 19:40:07.729398
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '034af9a2a366'
+revision = 'a9597cb3f42a'
 down_revision = None
 branch_labels = None
 depends_on = None

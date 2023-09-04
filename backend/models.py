@@ -42,8 +42,8 @@ class User(Base):
     contacts = Column(Integer())
     profilepicture = Column(String())
 
-    product=relationship("Products", backref="user")
-    order=relationship("Orders", backref="user")
+    product_user=relationship("Products", backref="user")
+    order_user=relationship("Orders", backref="user")
 
     # administrator = relationship("Admin", backref = 'user')
 
@@ -66,7 +66,7 @@ class Products(Base):
     # image = relationship("Images", backref = 'products')
     # cart = relationship("Cart", backref = 'products')
 
-    review=relationship("Reviews", backref="product")
+    review_products=relationship("Reviews", backref="product")
 
 
     def __repr__(self):
@@ -80,7 +80,7 @@ class Images(Base):
     image2 = Column(String())
     image3 = Column(String())
 
-    product = relationship("Products", backref = 'image')
+    product_image = relationship("Products", backref = 'images')
 
     def __repr__(self):
         return f'<Images: {self.id}>'
@@ -101,7 +101,7 @@ class Sales(Base):
     product_id=Column(Integer, ForeignKey("products.id"))
 
     # product=relationship("Products", backref="sale")
-    cart=relationship("Cart", backref="sale")
+    cart_sales=relationship("Cart", backref="sale")
 
     def __repr__(self):
         return f'<Sales: {self.id}>'
