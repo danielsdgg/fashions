@@ -60,7 +60,7 @@ class Products(Base):
     name = Column(String())
     description = Column(String())
     image = Column(String())
-    price = Column(String())
+    price = Column(Integer())
 
     # clients = relationship("User", backref = 'products')
     # image = relationship("Images", backref = 'products')
@@ -118,7 +118,7 @@ class Orders(Base):
     __tablename__ = 'orders'
     id = Column(Integer, primary_key = True)
     fee = Column(Integer())
-    date = Column(String())
+    date = Column(Integer())
     # products_id = Column(Integer, ForeignKey("products.id"))
     user_id = Column(Integer, ForeignKey("users.id"))
 
