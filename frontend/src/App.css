@@ -1,0 +1,12 @@
+img{
+    height: 400px;
+}
+
+body {
+    background-image: url('./assets/fash.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-position-x: center;
+    background-color: rgb(209, 213, 219);
+}

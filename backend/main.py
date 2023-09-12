@@ -1,48 +1,61 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from models import session, Superadmin, Admin, User, Products, Images, Reviews, Sales, Orders
 from typing import List, Optional
-import requests
-from requests.auth import HTTPBasicAuth
+from fastapi.middleware.cors import CORSMiddleware
+# import requests
+# from requests.auth import HTTPBasicAuth
 
 app = FastAPI()
 
-@app.route('/payments', methods=['POST'])
-def init_stk():
-    amount = Request.get_json()["amount"]
-    phone = Request.get_json()["phone"]
+origins = [
+    'http://localhost:3000'
+]
 
-    endpoint = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
-    access_token = get_access_token()
-    headers = { "Authorization": "Bearer %s" % access_token }
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
 
-    data = {
+# @app.route('/payments', methods=['POST'])
+# def init_stk():
+#     amount = Request.get_json()["amount"]
+#     phone = Request.get_json()["phone"]
+
+#     endpoint = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+#     access_token = get_access_token()
+#     headers = { "Authorization": "Bearer %s" % access_token }
+
+#     data = {
     
-    "BusinessShortCode": 174379,
-    "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3",
-    "Timestamp": "20230805110409",
-    "TransactionType": "CustomerPayBillOnline",
-    "Amount": amount,
-    "PartyA": phone,
-    "PartyB": 174379,
-    "PhoneNumber": phone,
-    "CallBackURL": "https://mydomain.com/path",
-    "AccountReference": "Fashion Dealers",
-    "TransactionDesc": "Chekout Payment" 
-  }
+#     "BusinessShortCode": 174379,
+#     "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3",
+#     "Timestamp": "20230805110409",
+#     "TransactionType": "CustomerPayBillOnline",
+#     "Amount": amount,
+#     "PartyA": phone,
+#     "PartyB": 174379,
+#     "PhoneNumber": phone,
+#     "CallBackURL": "https://mydomain.com/path",
+#     "AccountReference": "Fashion Dealers",
+#     "TransactionDesc": "Chekout Payment" 
+#   }
   
 
-    res = requests.post(endpoint, json = data, headers = headers)
-    return res.json()
+#     res = requests.post(endpoint, json = data, headers = headers)
+#     return res.json()
 
-def get_access_token():
-    consumer_key = "uL60hcnwqMwJKApd7oBez0AuaNnX3cjI"
-    consumer_secret = "9fucB8H1cwtBV07k"
-    endpoint = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+# def get_access_token():
+#     consumer_key = "uL60hcnwqMwJKApd7oBez0AuaNnX3cjI"
+#     consumer_secret = "9fucB8H1cwtBV07k"
+#     endpoint = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
 
-    r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
-    data = r.json()
-    return data['access_token']
+#     r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+#     data = r.json()
+#     return data['access_token']
 
 
 # creating pydantic classes for the models
@@ -108,7 +121,7 @@ class ProductsSchema(BaseModel):
     id:int
     name:str
     description:str
-    Image:str
+    image:str
     price:int
 
     class Config:

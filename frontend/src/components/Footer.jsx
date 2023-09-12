@@ -1,19 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-<footer className="bg-white rounded-lg shadow dark:bg-[#104c4e] m-4">
+<footer className="bg-black-to-red rounded-lg shadow dark:bg-[#104c4e] m-4">
   <div className="w-full m-auto max-w-screen-xl mx-auto p-4 md:py-8">
     <div className="sm:flex sm:items-center sm:justify-between">
-      <a href="" className="flex items-center mb-4 sm:mb-0">
-        <img src="https://img.freepik.com/free-vector/flat-design-clothing-store-logo-design_23-2149496415.jpg" className="h-8 mr-3" alt="Flowbite Logo" />
+      <p className="flex items-center mb-4 sm:mb-0">
+        <img src="https://res.cloudinary.com/ddei3mzex/image/upload/v1694214858/designn_ntpgtd.avif" className="h-8 mr-3" alt="Flowbite Logo" />
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">FASHION DEALERS</span>
-      </a>
+      </p>
       <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
         <li className="mr-4 hover:underline md:mr-6 cursor-pointer">About
         </li>
-        <li className="mr-4 hover:underline md:mr-6 cursor-pointer">App-Guide
-        </li>
+        <Link to={'/guide'}><li className="mr-4 hover:underline md:mr-6 cursor-pointer">App-Guide
+        </li></Link>
         <li className="mr-4 hover:underline md:mr-6 cursor-pointer">Licensing
         </li>
         <li className="hover:underline cursor-pointer">Contact
