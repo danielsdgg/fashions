@@ -1,5 +1,8 @@
 import React,{useState} from 'react'
 import ProductsItem from './ProductsItem'
+import {ShoppingCart} from 'phosphor-react'
+import { Link } from 'react-router-dom'
+
 
 const ProductsList = ({product, onsearch}) => {
     console.log(product)
@@ -45,6 +48,7 @@ const ProductsList = ({product, onsearch}) => {
             </button>
         </form><br></br>
         <h3 className='text-center font-bold md:text-4xl sm:text-3xl underline'>Products</h3>
+        <Link to={'/cart'}><ShoppingCart size={32} className='float-right cursor-pointer'/> </Link>
         <hr className="my-6 w-full border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-9" />
         <div className='grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4'>
         {displayProducts}

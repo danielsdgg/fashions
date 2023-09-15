@@ -21,12 +21,12 @@ const Profile = ({id, username, email, profile}) => {
   return (
 
 
-  <div className="container mx-auto my-5 p-5">
+  <div className="bg-gray-300 container mx-auto my-5 p-5">
     <div className="md:flex no-wrap md:-mx-2 ">
       {/* Left Side */}
       <div className="w-full md:w-3/12 md:mx-2">
         {/* Profile Card */}
-        <div className="bg-white p-3 border-t-4 border-green-400">
+        <div className="bg-gray-300 p-3 border-t-4 border-green-400">
           <div className="image overflow-hidden">
             <img className="h-auto w-full mx-auto" src={image} alt ={username}/>
           </div>
@@ -55,7 +55,7 @@ const Profile = ({id, username, email, profile}) => {
       <div className="w-full md:w-9/12 mx-2 h-64">
         {/* Profile tab */}
         {/* About Section */}
-        <div className="bg-white p-3 shadow-sm rounded-sm">
+        <div className="bg-gray-300 p-3 shadow-sm rounded-sm">
           <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
             <span clas="text-green-500">
               <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
