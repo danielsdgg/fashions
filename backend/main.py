@@ -20,45 +20,6 @@ app.add_middleware(
     allow_headers = ["*"],
 )
 
-# @app.route('/payments', methods=['POST'])
-# def init_stk():
-#     amount = Request.get_json()["amount"]
-#     phone = Request.get_json()["phone"]
-
-#     endpoint = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
-#     access_token = get_access_token()
-#     headers = { "Authorization": "Bearer %s" % access_token }
-
-#     data = {
-    
-#     "BusinessShortCode": 174379,
-#     "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3",
-#     "Timestamp": "20230805110409",
-#     "TransactionType": "CustomerPayBillOnline",
-#     "Amount": amount,
-#     "PartyA": phone,
-#     "PartyB": 174379,
-#     "PhoneNumber": phone,
-#     "CallBackURL": "https://mydomain.com/path",
-#     "AccountReference": "Fashion Dealers",
-#     "TransactionDesc": "Chekout Payment" 
-#   }
-  
-
-#     res = requests.post(endpoint, json = data, headers = headers)
-#     return res.json()
-
-# def get_access_token():
-#     consumer_key = "uL60hcnwqMwJKApd7oBez0AuaNnX3cjI"
-#     consumer_secret = "9fucB8H1cwtBV07k"
-#     endpoint = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
-
-#     r = requests.get(endpoint, auth=HTTPBasicAuth(consumer_key, consumer_secret))
-#     data = r.json()
-#     return data['access_token']
-
-
-# creating pydantic classes for the models
 class SuperadminSchema(BaseModel):
     id:int
     email:str
@@ -201,62 +162,62 @@ class UpdateOrdersSchema(BaseModel):
 
 
 #GET ALL REQUESTS
-@app.get("/")
+@app.get("/", tags=["Home"])
 def root():
-    return {"message": "Welcome User!"}
+    return {"message": "Welcome to the Homepage!"}
 
 # GET all requests
 # creating a component that returns all superadmins
-@app.get("/superadmin")
+@app.get("/superadmin", tags=["Get All"])
 def get_all_supers():
     superadmin = session.query(Superadmin).all()
     return superadmin
 
 # creating a component that returns all admins
-@app.get('/admin')
+@app.get('/admin', tags=["Get All"])
 def get_all_admins() -> List[AdminSchema]:
     adm = session.query(Admin).all()
     return adm
 
 # creating a component that returns all users
-@app.get('/users')
+@app.get('/users', tags=["Get All"])
 def get_all_users() -> List[UserSchema]:
     clt = session.query(User).all()
     return clt
 
 # creating a component that returns all products
-@app.get('/products')
+@app.get('/products', tags=["Get All"])
 def get_all_products() -> List[ProductsSchema]:
     stuff = session.query(Products).all()
     return stuff
 
 # creating a component that returns all images
-@app.get('/images')
+@app.get('/images', tags=["Get All"])
 def get_all_images() -> List[ImagesSchema]:
     img = session.query(Images).all()
     return img
 
 # creating a component that returns all reviews
-@app.get('/reviews')
+@app.get('/reviews', tags=["Get All"])
 def get_all_reviews() -> List[ReviewsSchema]:
     rev = session.query(Reviews).all()
     return rev
 
 # creating a component that returns all sales
-@app.get('/sales')
+@app.get('/sales', tags=["Get All"])
 def get_all_sales() -> List[SalesSchema]:
     sell = session.query(Sales).all()
     return sell
 
 # creating a component that returns all orders
-@app.get('/orders')
+@app.get('/orders', tags=["Get All"])
 def get_all_orders() -> List[OrdersSchema]:
     ord = session.query(Orders).all()
     return ord
 
 #GET ONE REQUESTS
 # creating a component that returns a single superadmin
-@app.get('/superadmin/{id}', response_model=SuperadminSchema)
+@app.get('/superadmin/{id}', tags=["Get One"], response_model=SuperadminSchema)
 def one_superadmin(id: int):
     supers = session.query(Superadmin).filter_by(id=id).first()
     if supers is None:
@@ -264,7 +225,7 @@ def one_superadmin(id: int):
     return supers
 
 # creating a component that returns a single admin
-@app.get('/admin/{id}', response_model=AdminSchema)
+@app.get('/admin/{id}', tags=["Get One"], response_model=AdminSchema)
 def one_admin(id: int):
     admns = session.query(Admin).filter_by(id=id).first()
     if admns is None:
@@ -272,7 +233,7 @@ def one_admin(id: int):
     return admns
 
 # creating a component that returns a single user
-@app.get('/user/{id}', response_model=UserSchema)
+@app.get('/user/{id}', tags=["Get One"], response_model=UserSchema)
 def one_user(id: int):
     customer = session.query(User).filter_by(id=id).first()
     if customer is None:
@@ -280,7 +241,7 @@ def one_user(id: int):
     return customer
 
 # creating a component that returns a single product
-@app.get('/product/{id}', response_model=ProductsSchema)
+@app.get('/product/{id}', tags=["Get One"], response_model=ProductsSchema)
 def one_product(id: int):
     prod = session.query(Products).filter_by(id=id).first()
     if prod is None:
@@ -288,7 +249,7 @@ def one_product(id: int):
     return prod
 
 # creating a component that returns a single image
-@app.get('/image/{id}', response_model=ImagesSchema)
+@app.get('/image/{id}', tags=["Get One"], response_model=ImagesSchema)
 def one_image(id: int):
     img = session.query(Images).filter_by(id=id).first()
     if img is None:
@@ -296,7 +257,7 @@ def one_image(id: int):
     return img
 
 # creating a component that returns a single review
-@app.get('/review/{id}', response_model=ReviewsSchema)
+@app.get('/review/{id}', tags=["Get One"], response_model=ReviewsSchema)
 def one_review(id: int):
     rev = session.query(Reviews).filter_by(id=id).first()
     if rev is None:
@@ -304,7 +265,7 @@ def one_review(id: int):
     return rev
 
 # creating a component that returns a single sale
-@app.get('/sale/{id}', response_model=SalesSchema)
+@app.get('/sale/{id}', tags=["Get One"], response_model=SalesSchema)
 def one_sale(id: int):
     sale = session.query(Sales).filter_by(id=id).first()
     if sale is None:
@@ -312,7 +273,7 @@ def one_sale(id: int):
     return sale
 
 # creating a component that returns a single order
-@app.get('/order/{id}', response_model=OrdersSchema)
+@app.get('/order/{id}', tags=["Get One"], response_model=OrdersSchema)
 def one_order(id: int):
     ord = session.query(Orders).filter_by(id=id).first()
     if ord is None:
@@ -321,7 +282,7 @@ def one_order(id: int):
 
 # ALL POST REQUESTS
 # creating a component that adds a new superadmin and their details to our list
-@app.post('/add_superadmin')
+@app.post('/add_superadmin', tags=["Post"])
 def add_superadmin(sup: SuperadminSchema):
     sadm = Superadmin(**dict(sup))
     session.add(sadm)
@@ -329,7 +290,7 @@ def add_superadmin(sup: SuperadminSchema):
     return sup
 
 # creating a component that adds a new admin and their details to our list
-@app.post('/add_admin')
+@app.post('/add_admin', tags=["Post"])
 def add_admin(adm: AdminSchema):
     admi = Admin(**dict(adm))
     session.add(admi)
@@ -337,7 +298,7 @@ def add_admin(adm: AdminSchema):
     return adm
 
 # creating a component that adds a new user and their details to our list
-@app.post('/add_user')
+@app.post('/add_user', tags=["Post"])
 def add_user(client: UserSchema):
     use = User(**dict(client))
     session.add(use)
@@ -345,7 +306,7 @@ def add_user(client: UserSchema):
     return client
 
 # creating a component that adds a new product and their details to our list
-@app.post('/add_product')
+@app.post('/add_product', tags=["Post"])
 def add_product(pdc: ProductsSchema):
     goods = Products(**dict(pdc))
     session.add(goods)
@@ -353,7 +314,7 @@ def add_product(pdc: ProductsSchema):
     return pdc
 
 # creating a component that adds a new image and their details to our list
-@app.post('/add_image')
+@app.post('/add_image', tags=["Post"])
 def add_image(img: ImagesSchema):
     pic = Images(**dict(img))
     session.add(pic)
@@ -361,7 +322,7 @@ def add_image(img: ImagesSchema):
     return img
 
 # creating a component that adds a new review and their details to our list
-@app.post('/add_review')
+@app.post('/add_review', tags=["Post"])
 def add_review(rev: ReviewsSchema):
     news = Reviews(**dict(rev))
     session.add(news)
@@ -369,7 +330,7 @@ def add_review(rev: ReviewsSchema):
     return rev
 
 # creating a component that adds a new sale and their details to our list
-@app.post('/add_sale')
+@app.post('/add_sale', tags=["Post"])
 def add_sale(buy: SalesSchema):
     sell = Sales(**dict(buy))
     session.add(sell)
@@ -378,7 +339,7 @@ def add_sale(buy: SalesSchema):
 
 
 # creating a component that adds a new order and their details to our list
-@app.post('/add_order')
+@app.post('/add_order', tags=["Post"])
 def add_order(book: OrdersSchema):
     ordr = Orders(**dict(book))
     session.add(ordr)
@@ -387,7 +348,7 @@ def add_order(book: OrdersSchema):
 
 # All PATCH requests
 # creating a component that edits specific details of a superadmin
-@app.patch('/superadmin_patch/{id}')
+@app.patch('/superadmin_patch/{id}', tags=["Patch"])
 def superadmin_patch(id:int, payload:UpdateSuperadminSchema):
     sdmp = session.query(Superadmin).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -396,7 +357,7 @@ def superadmin_patch(id:int, payload:UpdateSuperadminSchema):
         return {"detail":f"Superadmin has been edited"}
     
 # creating a component that edits specific details of an admin
-@app.patch('/admin_patch/{id}')
+@app.patch('/admin_patch/{id}', tags=["Patch"])
 def admin_patch(id:int, payload:UpdateAdminSchema):
     admp = session.query(Admin).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -405,7 +366,7 @@ def admin_patch(id:int, payload:UpdateAdminSchema):
         return {"detail":f"Admin has been edited"}
     
 # creating a component that edits specific details of a user
-@app.patch('/user_patch/{id}')
+@app.patch('/user_patch/{id}', tags=["Patch"])
 def user_patch(id:int, payload:UpdateUserSchema):
     udmp = session.query(User).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -414,7 +375,7 @@ def user_patch(id:int, payload:UpdateUserSchema):
         return {"detail":f"User has been edited"}
     
 # creating a component that edits specific details of a product
-@app.patch('/product_patch/{id}')
+@app.patch('/product_patch/{id}', tags=["Patch"])
 def product_patch(id:int, payload:UpdateProductsSchema):
     pdmp = session.query(Products).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -423,7 +384,7 @@ def product_patch(id:int, payload:UpdateProductsSchema):
         return {"detail":f"Product has been edited"}
 
 # creating a component that edits specific details of an image
-@app.patch('/image_patch/{id}')
+@app.patch('/image_patch/{id}', tags=["Patch"])
 def image_patch(id:int, payload:UpdateImagesSchema):
     idmp = session.query(Images).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -432,7 +393,7 @@ def image_patch(id:int, payload:UpdateImagesSchema):
         return {"detail":f"Image has been edited"}
     
 # creating a component that edits specific details of a review
-@app.patch('/review_patch/{id}')
+@app.patch('/review_patch/{id}', tags=["Patch"])
 def review_patch(id:int, payload:UpdateReviewsSchema):
     rdmp = session.query(Reviews).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -441,7 +402,7 @@ def review_patch(id:int, payload:UpdateReviewsSchema):
         return {"detail":f"Review has been edited"}
     
 # creating a component that edits specific details of a sale
-@app.patch('/sale_patch/{id}')
+@app.patch('/sale_patch/{id}', tags=["Patch"])
 def sale_patch(id:int, payload:UpdateSalesSchema):
     selling = session.query(Sales).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -450,7 +411,7 @@ def sale_patch(id:int, payload:UpdateSalesSchema):
         return {"detail":f"Sale has been edited"}
     
 # creating a component that edits specific details of an order
-@app.patch('/order_patch/{id}')
+@app.patch('/order_patch/{id}', tags=["Patch"])
 def order_patch(id:int, payload:UpdateOrdersSchema):
     odmp = session.query(Orders).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -460,7 +421,7 @@ def order_patch(id:int, payload:UpdateOrdersSchema):
     
 # ALL PUT REQUESTS
 # creating a component that edits all details of a superadmin
-@app.put('/superadmin_put/{id}')
+@app.put('/superadmin_put/{id}', tags=["Put"])
 def superadmin_put(id:int,payload:UpdateSuperadminSchema):
     superss = session.query(Superadmin).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -469,7 +430,7 @@ def superadmin_put(id:int,payload:UpdateSuperadminSchema):
     return {"detail":f"Superadmin completely updated"}
     
 # creating a component that edits all details of an admin
-@app.put('/admin_put/{id}')
+@app.put('/admin_put/{id}', tags=["Put"])
 def admin_put(id:int,payload:UpdateAdminSchema):
     admn = session.query(Admin).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -478,7 +439,7 @@ def admin_put(id:int,payload:UpdateAdminSchema):
     return {"detail":f"Admin completely updated"}
     
 # creating a component that edits all details of a user
-@app.put('/user_put/{id}')
+@app.put('/user_put/{id}', tags=["Put"])
 def user_put(id:int,payload:UpdateUserSchema):
     userss = session.query(User).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -487,7 +448,7 @@ def user_put(id:int,payload:UpdateUserSchema):
     return {"detail":f"User completely updated"}
     
 # creating a component that edits all details of a product
-@app.put('/product_put/{id}')
+@app.put('/product_put/{id}', tags=["Put"])
 def product_put(id:int,payload:UpdateProductsSchema):
     prods = session.query(Products).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -496,7 +457,7 @@ def product_put(id:int,payload:UpdateProductsSchema):
     return {"detail":f"Product completely updated"}
     
 # creating a component that edits all details of an image
-@app.put('/image_put/{id}')
+@app.put('/image_put/{id}', tags=["Put"])
 def image_put(id:int,payload:UpdateImagesSchema):
     imagess = session.query(Images).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -505,7 +466,7 @@ def image_put(id:int,payload:UpdateImagesSchema):
     return {"detail":f"Image completely updated"}
     
 # creating a component that edits all details of a review
-@app.put('/review_put/{id}')
+@app.put('/review_put/{id}', tags=["Put"])
 def review_put(id:int,payload:UpdateReviewsSchema):
     revss = session.query(Reviews).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -514,7 +475,7 @@ def review_put(id:int,payload:UpdateReviewsSchema):
     return {"detail":f"Review completely updated"}
     
 # creating a component that edits all details of a sale
-@app.put('/sale_put/{id}')
+@app.put('/sale_put/{id}', tags=["Put"])
 def sale_put(id:int,payload:UpdateSalesSchema):
     saless = session.query(Sales).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -523,7 +484,7 @@ def sale_put(id:int,payload:UpdateSalesSchema):
     return {"detail":f"Sale completely updated"}
     
 # creating a component that edits all details of an order
-@app.put('/order_put/{id}')
+@app.put('/order_put/{id}', tags=["Put"])
 def order_put(id:int,payload:UpdateOrdersSchema):
     odss = session.query(Orders).filter_by(id=id).first()
     for key,value in dict(payload).items():
@@ -533,7 +494,7 @@ def order_put(id:int,payload:UpdateOrdersSchema):
     
 # ALL DELETE REQUESTS
 # Creating a component that deletes a superadmin
-@app.delete('/deletesuper/{id}')
+@app.delete('/deletesuper/{id}', tags=["Delete"])
 def delete_super(id:int) -> None:
     sps = session.query(Superadmin).filter_by(id=id).first()
     session.delete(sps)
@@ -541,7 +502,7 @@ def delete_super(id:int) -> None:
     return {"detail":f"Superadmin deleted successfully"}
 
 # Creating a component that deletes an admin
-@app.delete('/deleteadmin/{id}')
+@app.delete('/deleteadmin/{id}', tags=["Delete"])
 def delete_adm(id:int) -> None:
     aps = session.query(Admin).filter_by(id=id).first()
     session.delete(aps)
@@ -549,7 +510,7 @@ def delete_adm(id:int) -> None:
     return {"detail":f"Admin deleted successfully"}
 
 # Creating a component that deletes a user
-@app.delete('/deleteuser/{id}')
+@app.delete('/deleteuser/{id}', tags=["Delete"])
 def delete_user(id:int) -> None:
     ups = session.query(User).filter_by(id=id).first()
     session.delete(ups)
@@ -557,7 +518,7 @@ def delete_user(id:int) -> None:
     return {"detail":f"User deleted successfully"}
 
 # Creating a component that deletes a product
-@app.delete('/deleteproduct/{id}')
+@app.delete('/deleteproduct/{id}', tags=["Delete"])
 def delete_product(id:int) -> None:
     pss = session.query(Products).filter_by(id=id).first()
     session.delete(pss)
@@ -565,7 +526,7 @@ def delete_product(id:int) -> None:
     return {"detail":f"Product deleted successfully"}
 
 # Creating a component that deletes an image
-@app.delete('/deleteimage/{id}')
+@app.delete('/deleteimage/{id}', tags=["Delete"])
 def delete_image(id:int) -> None:
     ims = session.query(Images).filter_by(id=id).first()
     session.delete(ims)
@@ -573,7 +534,7 @@ def delete_image(id:int) -> None:
     return {"detail":f"Image deleted successfully"}
 
 # Creating a component that deletes a review
-@app.delete('/deletereview/{id}')
+@app.delete('/deletereview/{id}', tags=["Delete"])
 def delete_review(id:int) -> None:
     rvs = session.query(Reviews).filter_by(id=id).first()
     session.delete(rvs)
@@ -581,7 +542,7 @@ def delete_review(id:int) -> None:
     return {"detail":f"Review deleted successfully"}
 
 # Creating a component that deletes a sale
-@app.delete('/deletesale/{id}')
+@app.delete('/deletesale/{id}', tags=["Delete"])
 def delete_sale(id:int) -> None:
     sold = session.query(Sales).filter_by(id=id).first()
     session.delete(sold)
@@ -589,7 +550,7 @@ def delete_sale(id:int) -> None:
     return {"detail":f"Sale deleted successfully"}
 
 # Creating a component that deletes an order
-@app.delete('/deleteorder/{id}')
+@app.delete('/deleteorder/{id}', tags=["Delete"])
 def delete_order(id:int) -> None:
     ods = session.query(Orders).filter_by(id=id).first()
     session.delete(ods)

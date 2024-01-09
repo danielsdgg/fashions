@@ -1,27 +1,21 @@
-img{
-    height: 400px;
-}
-
-body {
-    background-image: url('./assets/fash.jpg');
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-color: rgb(209, 213, 219);
+.images{
+  height: 100vmax;
+  width: 100%; 
 }
 
 .cart{
-    background-color: mediumblue;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 13px;
-    cursor: pointer;
-  }
-  
-  .cart:hover{
-    background-color: midnightblue;
-  }
+  background-color: rgb(50, 50, 241);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cart:hover{
+  background-color: darkblue;
+}
 
   .view{
     background-color: mediumseagreen;
@@ -34,12 +28,5 @@ body {
   }
   
   .view:hover{
-    background-color: lightgreen
-  }
-
-  .troll{
-    float: right;
-    font-size: large;
-    padding-right: 30px;
-    size: 45px;
+    background-color: darkgreen;
   }

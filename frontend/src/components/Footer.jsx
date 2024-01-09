@@ -1,31 +1,69 @@
 import React from 'react';
+import {
+  FaDribbbleSquare,
+  FaFacebookSquare,
+  FaInstagram,
+  FaTwitterSquare,
+} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-<footer className="bg-black-to-red rounded-lg shadow dark:bg-[#104c4e] m-4">
-  <div className="w-full m-auto max-w-screen-xl mx-auto p-4 md:py-8">
-    <div className="sm:flex sm:items-center sm:justify-between">
-      <p className="flex items-center mb-4 sm:mb-0">
-        <img src="https://res.cloudinary.com/ddei3mzex/image/upload/v1694214858/designn_ntpgtd.avif" className="h-8 mr-3" alt="Flowbite Logo" />
-        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">FASHION DEALERS</span>
-      </p>
-      <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-        <li className="mr-4 hover:underline md:mr-6 cursor-pointer">About
-        </li>
-        <Link to={'/guide'}><li className="mr-4 hover:underline md:mr-6 cursor-pointer">App-Guide
-        </li></Link>
-        <li className="mr-4 hover:underline md:mr-6 cursor-pointer">Licensing
-        </li>
-        <li className="hover:underline cursor-pointer">Contact
-        </li>
-      </ul>
+    <div className='bg-[#104c4e]'>
+      <div className='max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-white'>
+      <div>
+        <Link to={'/'}><img src="https://res.cloudinary.com/ddei3mzex/image/upload/v1699436420/Image_169h9387811877_zqgrpu.jpg" className="h-12 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
+        <p className='py-4'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id odit ullam iste repellat consequatur libero reiciendis, blanditiis accusantium.</p>
+        <div className='flex justify-between md:w-[75%] my-6'>
+        <a href="http://www.facebook.com" ><FaFacebookSquare size={30} /> </a>
+        <a href="http://www.instagram.com" ><FaInstagram size={30} /> </a>
+        <a href="http://www.twitter.com" ><FaTwitterSquare size={30} /> </a>
+        <a href="http://www.dribble.com" ><FaDribbbleSquare size={30} /> </a>
+        </div>
+      </div>
+      <div className='lg:col-span-2 flex justify-between mt-6'>
+    <div>
+        <h6 className='font-medium text-gray-400'>Solutions</h6>
+        <ul>
+            <li className='py-2 text-sm'>Analytics</li>
+            <li className='py-2 text-sm'>Marketing</li>
+            <li className='py-2 text-sm'>Commerce</li>
+            <li className='py-2 text-sm'>Insights</li>
+        </ul>
     </div>
-    <hr className="my-6 w-full border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-    <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 fashion-dealers. All Rights Reserved.</span>
-  </div>
-</footer>
-  )
-}
+    <div>
+        <h6 className='font-medium text-gray-400'>Support</h6>
+        <ul>
+            <li className='py-2 text-sm'>Pricing</li>
+            <li className='py-2 text-sm'>Documentation</li>
+            <li className='py-2 text-sm'>Guides</li>
+            <li className='py-2 text-sm'>API Status</li>
+        </ul>
+    </div>
+    <div>
+        <h6 className='font-medium text-gray-400'>Company</h6>
+        <ul>
+            <Link to={'/about'}><li className='py-2 text-sm'>About</li></Link>
+            <li className='py-2 text-sm'>Blog</li>
+            <li className='py-2 text-sm'>Jobs</li>
+            <li className='py-2 text-sm'>Press</li>
+            <li className='py-2 text-sm'>Careers</li>
+        </ul>
+    </div>
+    <div>
+        <h6 className='font-medium text-gray-400'>Legal</h6>
+        <ul>
+            <li className='py-2 text-sm'>Claim</li>
+            <li className='py-2 text-sm'>Policy</li>
+            <li className='py-2 text-sm'>Terms</li>
+        </ul>
+    </div>
+      </div>
+    </div>
 
-export default Footer
+    </div>
+    
+  );
+};
+
+export default Footer;

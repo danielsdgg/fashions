@@ -9,7 +9,7 @@ function ProductsItem({ name, description, image, price, handleAddProduct}) {
         <p className='text-center'>{description}</p>
         <p className='text-center'>Kshs: {price}</p><br></br>
 
-        <button className='cart' onClick={() =>handleAddProduct()}>Add to Cart</button>
+        <button onClick={() =>handleAddProduct()} className='cart'>Add to Cart</button>
         <br></br><br></br>
 
         <Link to={'/details'}><button className='view'>View More</button></Link>

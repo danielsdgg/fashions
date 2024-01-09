@@ -6,10 +6,13 @@ name = "pypi"
 [packages]
 pydantic = "*"
 uvicorn = "*"
-fastapi = "*"
 sqlalchemy = "*"
 alembic = "*"
 faker = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
+fastapi = {extras = ["all"], version = "*"}
+pyjwt = "*"
+python-decouple = "*"
 
 [dev-packages]
 
