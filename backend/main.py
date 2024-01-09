@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from models import session, Superadmin, Admin, User, Products, Images, Reviews, Sales, Orders
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 # import requests
 # from requests.auth import HTTPBasicAuth
 
@@ -557,3 +558,5 @@ def delete_order(id:int) -> None:
     session.commit()
     return {"detail":f"Order deleted successfully"}
     
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=5000) 

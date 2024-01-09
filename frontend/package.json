@@ -18,7 +18,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run start:frontend & npm run start:backend",
+    "start:backend":" cd ../backend && pipenv run python3 main.py",
+    "start:frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -42,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "concurrency": "^0.1.4",
     "tailwindcss": "^3.3.3"
   }
 }
