@@ -2,8 +2,8 @@ import React,{useEffect, useState} from 'react';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
+import About from './components/About';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Guide from './components/Guide';
 import ProductsList from './components/ProductsList';
 import './App.css'
 import Details from './components/Details';
@@ -67,7 +67,7 @@ function App() {
       <Route path="/details" element= {<Details/>}/>
       <Route path="/products" element = {<ProductsList product= {product} onSearch = {onSearch} cartItems = {cartItems} handleAddProduct ={handleAddProduct}/>} />
       <Route path='/cart' element = {<Cart cartItems={cartItems} handleAddProduct = {handleAddProduct} handleRemoveProduct = {handleRemoveProduct} handleCartClearance = {handleCartClearance}/>} />
-      <Route path="/guide" element= {<Guide/>}/>
+      <Route path="/about" element= {<About/>}/>
       </Routes>
       <Footer/>
       </BrowserRouter>
