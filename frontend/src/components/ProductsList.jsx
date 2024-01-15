@@ -3,7 +3,7 @@ import ProductsItem from './ProductsItem';
 import { ShoppingCart } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 
-const ProductsList = ({ product, onSearch }) => {
+const ProductsList = ({ product }) => {
   const [search, setSearch] = useState([]);
   const [name, setName] = useState('');
 

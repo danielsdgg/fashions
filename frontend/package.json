@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "npm run start:frontend & npm run start:backend",
-    "start:backend":" cd ../backend && pipenv run python3 main.py",
+    "start:backend":" cd ../backend && pipenv run uvicorn main:app",
     "start:frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

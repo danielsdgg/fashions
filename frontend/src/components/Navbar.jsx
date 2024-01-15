@@ -17,7 +17,7 @@ const Navbar = () => {
         <Link to={'/'}><li className='p-4 cursor-pointer'>Home</li></Link>
         <Link to={'/products'}><li className='p-4 cursor-pointer'>Products</li></Link>
         <Link to={'/design'}><li className='p-4 cursor-pointer'>Design</li></Link>
-        <Link to={'/profile'}><li className='p-4 cursor-pointer'>Services</li></Link>
+        <Link to={'/services'}><li className='p-4 cursor-pointer'>Services</li></Link>
         <Link to={'/about'}><li className='p-4 cursor-pointer'>About</li></Link>
       </ul>
       <div onClick={handleNav} className='block md:hidden cursor-pointer'>
@@ -29,7 +29,7 @@ const Navbar = () => {
       <Link to={'/'}><li className='p-4 cursor-pointer border-b border-gray-600'>Home</li></Link>
       <Link to={'/products'}><li className='p-4 cursor-pointer border-b border-gray-600'>Products</li></Link>
       <Link to={'/design'}><li className='p-4 cursor-pointer border-b border-gray-600'>Design</li></Link>
-      <Link to={'/profile'}><li className='p-4 cursor-pointer'>Services</li></Link>
+      <Link to={'/services'}><li className='p-4 cursor-pointer'>Services</li></Link>
       <Link to={'/about'}><li className='p-4 cursor-pointer border-b border-gray-600'>About</li> </Link>
       </ul>
     </div>

@@ -2,8 +2,24 @@
   height: 100vmax;
   width: 100%; 
 }
+.cadii{
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  cursor: pointer;
+}
+ .cadii:hover{
+  background-color: #327b7e;
+ }
+
+#imaging1{
+  height: 25vmax;
+  width: 95%;
+}
 
 .cart{
+  width: 100%;
+  /* margin-left: 170px; */
   background-color: rgb(50, 50, 241);
   color: #fff;
   border: none;
@@ -18,6 +34,8 @@
 }
 
   .view{
+    width: 100%;
+    /* margin-left: 170px; */
     background-color: mediumseagreen;
     color: #fff;
     border: none;
