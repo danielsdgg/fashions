@@ -21,7 +21,7 @@ const ProductsList = ({ product }) => {
 
   let displayProducts;
   if(search.length<=0){
-   displayProducts= product.map((products) => {
+   displayProducts= product?.map((products) => {
       var productimage = '';
       products.images?.map((image) => {
         productimage = image.image1;
@@ -53,8 +53,9 @@ const ProductsList = ({ product }) => {
         <select className='font-bold md:text-1xl sm:text-1xl' name='name' id='name' value={name} onChange={(e) => setName(e.target.value)}>
           <option value=''>Any</option>
           <option value='African'>African</option>
+          <option value='Ladies'>Ladies</option>
           <option value='Men'>Men</option>
-          <option value='Women'>Women</option>
+          <option value='Shirt'>Shirt</option>
           <option value='Socks'>Socks</option>
           <option value='Hoody'>Hoody</option>
         </select>

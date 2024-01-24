@@ -2,6 +2,11 @@
   height: 100vmax;
   width: 100%; 
 }
+img{
+  height: 40vmax;
+  width: 60%; 
+}
+
 .cadii{
   justify-content: center;
   align-items: center;

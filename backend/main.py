@@ -10,7 +10,9 @@ import uvicorn
 app = FastAPI()
 
 origins = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://172.30.38.123:3000'
+
 ]
 
 app.add_middleware(
@@ -79,12 +81,35 @@ class UpdateUserSchema(BaseModel):
     class Config:
         orm_mode = True
 
+
+class ImagesSchema(BaseModel):
+    id:int
+    image1:str
+    image2:str
+    image3:str
+    products_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class UpdateImagesSchema(BaseModel):
+    id:Optional[int] = None
+    image1:Optional[str] = None
+    image2:Optional[str] = None
+    image3:Optional[str] = None
+    products_id:Optional[int] = None
+
+    class Config:
+        orm_mode = True
+
 class ProductsSchema(BaseModel):
     id:int
     name:str
     description:str
     image:str
     price:int
+    images: List[ImagesSchema]
 
     class Config:
         orm_mode = True
@@ -95,24 +120,7 @@ class UpdateProductsSchema(BaseModel):
     description:Optional[str] = None
     image:Optional[str] = None
     price:Optional[int] = None
-
-    class Config:
-        orm_mode = True
-
-class ImagesSchema(BaseModel):
-    id:int
-    image1:str
-    image2:str
-    image3:str
-
-    class Config:
-        orm_mode = True
-
-class UpdateImagesSchema(BaseModel):
-    id:Optional[int] = None
-    image1:Optional[str] = None
-    image2:Optional[str] = None
-    image3:Optional[str] = None
+    images: List[UpdateImagesSchema]
 
     class Config:
         orm_mode = True

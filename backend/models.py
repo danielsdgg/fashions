@@ -64,6 +64,7 @@ class Products(Base):
     price = Column(Integer())
 
     clients = relationship("User", backref = 'products')
+    images = relationship("Images", backref="products")
     # img = relationship('Images', secondary='product_image', back_populates='product')
     # images_id = Column(Integer, ForeignKey("images.id"))
     # cart_id = Column(Integer, ForeignKey("carts.id"))
@@ -85,8 +86,7 @@ class Images(Base):
     image3 = Column(String())
     products_id = Column(Integer, ForeignKey("products.id"))
 
-
-    # product_image = relationship("Products", backref = 'image')
+    
 
     def __repr__(self):
         return f'<Images: {self.id}>'
