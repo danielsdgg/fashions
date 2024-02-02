@@ -10,6 +10,7 @@ import Details from './components/Details';
 import Cart from './components/Cart';
 import Design from './components/Design';
 import Services from './components/Services';
+import Addproduct from './components/Addproduct';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -52,6 +53,16 @@ function App() {
     fetching()
   },[])
 
+    // Delete a product functionality
+    function handleDelete(id){
+      fetch(`http://127.0.0.1:8000/deleteproduct/${id}`,{
+        method:"DELETE",
+        headers:{"Content-Type":"application/json"}
+      })
+      .then(res => res.json())
+      .then(data => setProduct(data))
+    }
+
 
   return (
     <div className="App">
@@ -60,11 +71,12 @@ function App() {
       <Routes>
       <Route exact path="/" element = {<Home/>}/>
       <Route path='/design' element = {<Design/>}/> 
-      <Route path="/details/:id" element= {<Details/>}/>
+      <Route path="/details/:id" element= {<Details handleDelete = {handleDelete}/> }/>
       <Route path='/services' element = {<Services/>}/>
       <Route path="/products" element = {<ProductsList product= {product}  cartItems = {cartItems} handleAddProduct ={handleAddProduct}/>} />
       <Route path='/cart' element = {<Cart cartItems={cartItems} handleAddProduct = {handleAddProduct} handleRemoveProduct = {handleRemoveProduct} handleCartClearance = {handleCartClearance}/>} />
       <Route path="/about" element= {<About/>}/>
+      <Route path='/addproduct' element = {<Addproduct/>}/> 
       </Routes>
       <Footer/>
       </BrowserRouter>

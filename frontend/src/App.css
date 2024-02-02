@@ -2,25 +2,25 @@
   height: 100vmax;
   width: 100%; 
 }
-img{
-  height: 40vmax;
-  width: 60%; 
+.imagee{
+  height: 385px;
+  width: 100%; 
 }
 
 .cadii{
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 2.5rem;
   cursor: pointer;
 }
- .cadii:hover{
+ /* .cadii:hover{
   background-color: #327b7e;
- }
-
+ } */
+/* 
 #imaging1{
-  height: 25vmax;
-  width: 95%;
-}
+  height: 40vmax;
+  width: 60%;
+} */
 
 .cart{
   width: 100%;
@@ -52,4 +52,64 @@ img{
   
   .view:hover{
     background-color: darkgreen;
+  }
+  .del{
+    width: 100%;
+    /* margin-left: 170px; */
+    background-color: rgb(226, 85, 85);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .del:hover{
+    background-color: darkred;
+  }
+  .add{
+    width: 20%;
+    background-color: rgb(202, 149, 68);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 13px;
+    cursor: pointer;  
+  }
+  .add:hover{
+    background-color: darkgoldenrod;
+  }
+  .ad-btn{
+    width: 13%;
+    background-color: rgb(202, 149, 68);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 10px;
+    cursor: pointer; 
+  }
+  .ad-btn:hover{
+    background-color: darkgoldenrod;
+  }
+  .prod-form{
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+  }
+  .prod-form label{
+    display: block;
+    margin-bottom: 5px;
+  }
+  .prod-form input[type="text"],
+  .prod-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    height: 20%;
+    color:black
   }

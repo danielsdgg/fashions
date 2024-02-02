@@ -3,7 +3,7 @@ import ProductsItem from './ProductsItem';
 import { ShoppingCart } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 
-const ProductsList = ({ product }) => {
+const ProductsList = ({ product, handleAddProduct, handleDelete }) => {
   const [search, setSearch] = useState([]);
   const [name, setName] = useState('');
 
@@ -37,7 +37,7 @@ const ProductsList = ({ product }) => {
         productimage = image.image1;
         return productimage;
       });
-      return <ProductsItem key={products.id} id={products.id} name={products.name} description={products.description} image={products.image} price={products.price} />;
+      return <ProductsItem key={products.id} id={products.id} name={products.name} description={products.description} image={products.image} price={products.price} handleAddProduct={handleAddProduct} handleDelete={handleDelete}/>;
     })
   }
   ;
@@ -47,8 +47,8 @@ const ProductsList = ({ product }) => {
       <form onSubmit={handleSubmit}>
         <h4 className='font-extrabold md:text-1xl sm:text-1xl italic underline'>search for clothes</h4>
         <br></br>
-        <label className='font-semibold' htmlFor='name'>
-          Name:
+        <label className='font-semibold mr-2' htmlFor='name'>
+          Category :
         </label>
         <select className='font-bold md:text-1xl sm:text-1xl' name='name' id='name' value={name} onChange={(e) => setName(e.target.value)}>
           <option value=''>Any</option>
@@ -67,10 +67,11 @@ const ProductsList = ({ product }) => {
       </form>
       <br></br>
       <h3 className='text-center font-bold md:text-4xl sm:text-3xl underline'>Products</h3>
+      <Link to={'/addproduct'}><button className="add">Add Product</button></Link>
       <Link to={'/cart'}>
         <ShoppingCart size={32} className='float-right cursor-pointer m-2.5' />
       </Link>
-      <hr className='my-6 w-full border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-9' />
+      <hr className='my-6 w-full border-gray-200 sm:mx-auto dark:border-gray-900 lg:my-2' />
       <div className='grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4'>{displayProducts}</div>
     </div>
   );
