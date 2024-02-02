@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, String, Column, Integer, ForeignKey
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship, validates
 
 Base = declarative_base()
 
@@ -19,7 +19,7 @@ class Admin(Base):
     email = Column(String())
     password = Column(String())
 
-    super = relationship("Superadmin", backref = 'admins')
+    super = relationship("Superadmin", backref = 'admin')
 
     def __repr__(self):
         return f'<Admin: {self.email}>'
@@ -28,6 +28,7 @@ class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key = True, autoincrement=True)
     admin_id = Column(Integer, ForeignKey('admins.id'))
+    super_ad = Column(Integer, ForeignKey('superadmins.id'))
     username = Column(String())
     email = Column(String())
     password = Column(String())
@@ -35,24 +36,26 @@ class User(Base):
     # product_user=relationship("Products", backref="user")
     # order_user=relationship("Orders", backref="user")
 
-    administrator = relationship("Admin", backref = 'users')
+    administrator = relationship("Admin", backref = 'user')
+    supp = relationship("Superadmin", backref = 'user')
 
     def __repr__(self):
         return f'<User: {self.email}>'
     
+class Profile(Base):
+    __tablename__ = 'profile'
+    id = Column(Integer, primary_key = True, autoincrement=True)
+    users_id = Column(Integer, ForeignKey('users.id'))
+    fname = Column(String())
+    lname = Column(String())
+    email = Column(String())
+    gender = Column(String())
+    contacts = Column(Integer())
+    profilepicture = Column(String())
+    password = Column(Integer())
 
-# class Profile(Base):
-#     __tablename__ = 'profile'
-#     id = Column(Integer, primary_key = True, autoincrement=True)
-#     users_id = Column(Integer, ForeignKey('user.id'))
-#     fname = Column(String())
-#     lname = Column(String())
-#     gender = Column(String())
-#     contacts = Column(Integer())
-#     profilepicture = Column(String())
-    
-
-
+    def __repr__(self):
+        return f'<User: {self.fname}>'
 
 class Products(Base):
     __tablename__ = 'products'
@@ -62,49 +65,49 @@ class Products(Base):
     description = Column(String())
     image = Column(String())
     price = Column(Integer())
+    images = Column(String())
 
-    clients = relationship("User", backref = 'products')
-    images = relationship("Images", backref="products")
-    # img = relationship('Images', secondary='product_image', back_populates='product')
-    # images_id = Column(Integer, ForeignKey("images.id"))
-    # cart_id = Column(Integer, ForeignKey("carts.id"))
-    # image = relationship("Images", backref = 'products')
-    # cart = relationship("Cart", backref = 'products')
-
-    # review_products=relationship("Reviews", backref="product")
-
+    clients = relationship("User", backref = 'product')
+    images = relationship("Images", backref="product")
+    cartt = relationship("Cart", backref = 'product')
 
     def __repr__(self):
         return f'<Products: {self.name}>'
 
-
 class Images(Base):
     __tablename__ = 'images'
     id = Column(Integer, primary_key = True, autoincrement=True)
+    products_id = Column(Integer, ForeignKey("products.id"))
     image1 = Column(String())
     image2 = Column(String())
     image3 = Column(String())
-    products_id = Column(Integer, ForeignKey("products.id"))
-
-    
 
     def __repr__(self):
         return f'<Images: {self.id}>'
     
 class Services(Base):
     __tablename__ = 'services'
-    id =Column(Integer, primary_key = True, autoincrement = True)
+    id = Column(Integer, primary_key = True, autoincrement = True)
+    user_id = Column(Integer, ForeignKey('users.id'))
     name = Column(String())
     email = Column(String())
+    message = Column(String())
+
+    userrr = relationship("User", backref='service')
+
+    def __repr__(self):
+        return f'<Images: {self.id}>'
 
 class Reviews(Base):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key = True, autoincrement=True)
+    product_id = Column(Integer, ForeignKey("products.id"))
+    userr = Column(Integer, ForeignKey('users.id'))
     comments = Column(String())
-    ratings = Column(String())
-    product_id=Column(Integer, ForeignKey("products.id"))
+    ratings = Column(Integer())
 
-    product = relationship("Products", backref="review")
+    product = relationship("Products", backref='review')
+    clientt = relationship("User", backref = 'review')
 
     def __repr__(self):
         return f'<Reviews: {self.id}>'
@@ -113,6 +116,9 @@ class Sales(Base):
     __tablename__ = 'sales'
     id = Column(Integer, primary_key = True, autoincrement=True)
     product_id=Column(Integer, ForeignKey("products.id"))
+    name = Column(String())
+    quantity = Column(Integer())
+    amount = Column(Integer())
 
     product=relationship("Products", backref="sale")
     # cart_sales=relationship("Cart", backref="sale")
@@ -123,7 +129,14 @@ class Sales(Base):
 class Cart(Base):
     __tablename__ = 'carts'
     id = Column(Integer, primary_key = True)
-    sales_id = Column(Integer, ForeignKey("sales.id"))
+    client_id = Column(Integer, ForeignKey("users.id"))
+    product_id = Column(Integer, ForeignKey('products.id'))
+    name = Column(String())
+    description = Column(String())
+    image = Column(String())
+    quantity = Column(Integer())
+    total_price = Column(Integer())
+
     
     def __repr__(self):
         return f'<Cart: {self.id}>'
@@ -131,10 +144,11 @@ class Cart(Base):
 class Orders(Base):
     __tablename__ = 'orders'
     id = Column(Integer, primary_key = True, autoincrement=True)
-    fee = Column(Integer())
-    date = Column(Integer())
     products_id = Column(Integer, ForeignKey("products.id"))
     user_id = Column(Integer, ForeignKey("users.id"))
+    name = Column(String())
+    fee = Column(Integer())
+    date = Column(Integer())
 
     product = relationship("Products", backref = 'order')
     users = relationship("User", backref="order")

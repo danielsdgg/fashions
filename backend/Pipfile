@@ -13,6 +13,8 @@ passlib = {extras = ["bcrypt"], version = "*"}
 fastapi = {extras = ["all"], version = "*"}
 pyjwt = "*"
 python-decouple = "*"
+marshmallow = "*"
+webargs = "*"
 
 [dev-packages]
 
