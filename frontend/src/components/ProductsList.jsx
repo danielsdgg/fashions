@@ -13,6 +13,7 @@ const ProductsList = ({ product, handleAddProduct, handleDelete }) => {
     setSearch(filteredProducts);
   };
 
+  console.log(product)
   const handleSubmit = (e) => {
     e.preventDefault();
     filtering();

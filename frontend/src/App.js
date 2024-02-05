@@ -71,7 +71,7 @@ function App() {
       <Routes>
       <Route exact path="/" element = {<Home/>}/>
       <Route path='/design' element = {<Design/>}/> 
-      <Route path="/details/:id" element= {<Details handleDelete = {handleDelete}/> }/>
+      <Route path="/details/:name" element= {<Details handleDelete = {handleDelete}/> }/>
       <Route path='/services' element = {<Services/>}/>
       <Route path="/products" element = {<ProductsList product= {product}  cartItems = {cartItems} handleAddProduct ={handleAddProduct}/>} />
       <Route path='/cart' element = {<Cart cartItems={cartItems} handleAddProduct = {handleAddProduct} handleRemoveProduct = {handleRemoveProduct} handleCartClearance = {handleCartClearance}/>} />

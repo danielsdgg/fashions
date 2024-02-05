@@ -75,11 +75,23 @@
     border-radius: 5px;
     padding: 15px;
     font-size: 13px;
-    cursor: pointer;  
+    cursor: pointer;
+      
   }
   .add:hover{
     background-color: darkgoldenrod;
   }
+
+  .edt:hover{
+    background-color: #55a9cf;
+  }
+
+  .dlt:hover{
+    background-color: red;
+  }
+
+
+
   .ad-btn{
     width: 13%;
     background-color: rgb(202, 149, 68);

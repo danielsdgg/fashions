@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, String, Column, Integer, ForeignKey
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship, validates
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 
 Base = declarative_base()
 
@@ -65,7 +65,6 @@ class Products(Base):
     description = Column(String())
     image = Column(String())
     price = Column(Integer())
-    images = Column(String())
 
     clients = relationship("User", backref = 'product')
     images = relationship("Images", backref="product")
@@ -133,6 +132,7 @@ class Cart(Base):
     product_id = Column(Integer, ForeignKey('products.id'))
     name = Column(String())
     description = Column(String())
+    price = Column(Integer())
     image = Column(String())
     quantity = Column(Integer())
     total_price = Column(Integer())
@@ -146,9 +146,9 @@ class Orders(Base):
     id = Column(Integer, primary_key = True, autoincrement=True)
     products_id = Column(Integer, ForeignKey("products.id"))
     user_id = Column(Integer, ForeignKey("users.id"))
-    name = Column(String())
-    fee = Column(Integer())
-    date = Column(Integer())
+    full_name = Column(String())
+    address = Column(String())
+    city = Column(String())
 
     product = relationship("Products", backref = 'order')
     users = relationship("User", backref="order")

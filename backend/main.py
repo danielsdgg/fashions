@@ -114,7 +114,7 @@ class ProductsSchema(BaseModel):
     description:str
     image:str
     price:int
-    images: list[ImagesSchema] | None = None
+    images: Optional[List[ImagesSchema]] = None
 
     class Config:
         orm_mode = True
@@ -124,10 +124,37 @@ class UpdateProductsSchema(BaseModel):
     description:Optional[str] = None
     image:Optional[str] = None
     price:Optional[int] = None
-    images: list[ImagesSchema] | None = None
+    images: Optional[List[ImagesSchema]] = None
 
     class Config:
         orm_mode = True
+
+# creating an instance of images
+images_instance = ImagesSchema(
+    image1="image1_url",
+    image2="image2_url",
+    image3="image3_url"
+)
+
+# create a list of ImagesSchema instances
+images_list = [images_instance]
+
+# creating an instance of productSchema and associating it with the imagesSchema instance
+product_instance = ProductsSchema(
+    name="Product Name",
+    description="Product description",
+    image="product_image_url",
+    price=100,
+    images=[images_instance]
+)
+
+# access the images associated with the product like so:
+print(product_instance.images[0].image1)
+print(product_instance.images[0].image2)
+print(product_instance.images[0].image3)
+
+
+
 
 class ServicesSchema(BaseModel):
     name:str
@@ -318,9 +345,9 @@ def one_product(id: int):
     return profi
 
 # creating a component that returns a single product
-@app.get('/product/{id}', tags=["Get One"], response_model=ProductsSchema)
-def one_product(id: int):
-    prod = session.query(Products).filter_by(id=id).first()
+@app.get('/product/{name}', tags=["Get One"], response_model=ProductsSchema)
+def one_product(name: str):
+    prod = session.query(Products).filter_by(name=name).first()
     if prod is None:
         raise HTTPException(status_code=404, detail="Product does not exist")
     return prod
@@ -409,10 +436,17 @@ def add_profile(prf: ProfileSchema):
 #Product
 @app.post('/add_product', tags=["Post"])
 def add_product(pdc: ProductsSchema):
-    goods = Products(**dict(pdc))
-    session.add(goods)
+    product = pdc.dict()
+    new_product = Products(name=product["name"], description=product["description"], image=product["image"], price=product["price"])
+    print(new_product)
+    images = product["images"][0]
+    new_images = Images(image1=images["image1"], image2=images["image2"], image3=images["image3"])
+    print(new_images)
+    print(product)
+    new_product.images.append(new_images)
+    session.add(new_product)
     session.commit()
-    return pdc
+    return "product"
 
 #Image
 @app.post('/add_image', tags=["Post"])
@@ -605,6 +639,13 @@ def product_put(id:int,payload:UpdateProductsSchema):
     prods = session.query(Products).filter_by(id=id).first()
     for key,value in dict(payload).items():
         setattr(prods,key,value)
+        if UpdateProductsSchema.images:
+        # Check if product already has images
+            if not prods.images:
+                prods.images = Images(**UpdateProductsSchema.images.dict())
+            else:
+                for field, value in UpdateProductsSchema.images.dict().items():
+                    setattr(prods.images, field, value)
     session.commit()
     return {"detail":f"Product updated"}
     
