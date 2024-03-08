@@ -28,10 +28,11 @@ const Home = () => {
             <div className='flex flex-col justify-center text-black'>
                 <h2 className='font-semibold py-2 md:text-6xl sm:text-3xl text-2xl'>Message from our CEO:</h2>
                 <p>
-                    Hero-Cloth-Line has one shared objective; To unlock the true potential of individuals, teams, and the community. We believe strongly in the power of sharing ideas and continuously strive to grow each other and ourselves.Internally, but also within the larger communities in which we are active. I am excited to be launching this website since it will connect us more to our clients. We are here to serve you. Enjoy..!
+                    Hero-Cloth-Line has one shared objective; To unlock the true potential of individuals, teams, and the community. We believe strongly in the power of sharing ideas and continuously strive to grow each other and ourselves.
+                    <p>Internally, but also within the larger communities in which we are active. I am excited to be launching this website since it will connect us more to our clients. We are here to serve you. Enjoy..!</p>
                 </p>
             </div>
-            <img className='w-[500px] mx-auto rounded-3xl my-4' src='https://res.cloudinary.com/ddei3mzex/image/upload/v1694210974/fash_qqif6b.jpg' alt='mind'/>
+            <img className='w-[500px] mx-auto rounded-3xl my-4' src='https://res-console.cloudinary.com/ddei3mzex/thumbnails/v1/image/upload/v1709418342/Q0VPX2Fya3Jkaw==/as_is' alt='mind'/>
 
         </div>
     </div>

@@ -13,16 +13,8 @@
   padding: 2.5rem;
   cursor: pointer;
 }
- /* .cadii:hover{
-  background-color: #327b7e;
- } */
-/* 
-#imaging1{
-  height: 40vmax;
-  width: 60%;
-} */
 
-.cart{
+.carttt{
   width: 100%;
   /* margin-left: 170px; */
   background-color: rgb(50, 50, 241);
@@ -34,7 +26,7 @@
   cursor: pointer;
 }
 
-.cart:hover{
+.carttt:hover{
   background-color: darkblue;
 }
 
@@ -67,6 +59,24 @@
   .del:hover{
     background-color: darkred;
   }
+
+  .btnc{
+    width: 100%;
+    /* margin-left: 170px; */
+    background-color: rgb(50, 50, 241);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .btnc:hover{
+    background-color: darkblue;
+  }
+
+
   .add{
     width: 20%;
     background-color: rgb(202, 149, 68);
@@ -90,38 +100,229 @@
     background-color: red;
   }
 
+  .slcc{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+  }
 
-
-  .ad-btn{
-    width: 13%;
-    background-color: rgb(202, 149, 68);
+  .subbb{
+    margin-left: 12px;
+    width: 50%;
+    background-color: rgb(50, 50, 241);
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 7px;
-    font-size: 10px;
-    cursor: pointer; 
+    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
   }
-  .ad-btn:hover{
-    background-color: darkgoldenrod;
+  .subbb:hover{
+    background-color: darkblue;
   }
-  .prod-form{
-    background-color: #333;
+
+
+
+
+
+  /* others for cart */
+  .fmm{
+    padding: 2vh 0;
+  }
+  .title{
+    margin-bottom: 5vh;
+  }
+  
+  @media(max-width:767px){
+    .card{
+        margin: 3vh auto;
+    }
+  }
+  .cart{
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+  }
+  @media(max-width:767px){
+    .cart{
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem;
+    }
+  }
+  .summary{
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+  }
+  @media(max-width:767px){
+    .summary{
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+    }
+  }
+  .summary .col-2{
+    padding: 0;
+  }
+  .summary .col-10
+  {
+    padding: 0;
+  }.row{
+    margin: 0;
+  }
+  .title b{
+    font-size: 1.5rem;
+  }
+  .main{
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+  }
+  .col-2, .col{
+    padding: 0 1vh;
+  }
+  a{
+    padding: 0 1vh;
+  }
+  .close{
+    margin-left: auto;
+    font-size: 0.7rem;
+  }
+  
+  .back-to-shop{
+    margin-top: 4.5rem;
+  }
+  h5{
+    margin-top: 4vh;
+  }
+  hr{
+    margin-top: 1.25rem;
+  }
+  form{
+    padding: 2vh 0;
+  }
+  select{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+  }
+
+
+  a:hover{
+    color: black;
+    text-decoration: none;
+  }
+  #code{
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253) , rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center;
+  }
+  
+  
+  
+  /* .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #393E41;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #5C415D}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  } */
+
+  .auth-form-container, .login-form, .register-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media screen and (min-width: 600px) {
+    .auth-form-container {
+      padding: 5rem;
+      border: 1px solid white;
+      border-radius: 10px;
+      margin: 0.5rem;
+    }
+  }
+  
+  label {
+    text-align: left;
+    padding: 0.25rem 0;
+  }
+  
+  input {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  /* button {
+    border: none;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
+    cursor: pointer;
+    color: #7439db;
+  } */
+  
+  .link-btn {
+    background: none;
     color: white;
+    text-decoration: underline;
   }
-  .prod-form label{
-    display: block;
-    margin-bottom: 5px;
+
+  .add-product, .prod-form{
+    display: flex;
+    flex-direction: column;
   }
-  .prod-form input[type="text"],
-  .prod-form input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
+  @media screen and (min-width: 600px) {
+    .add-product{
+      padding: 5rem;
+      border: 1px solid white;
+      border-radius: 10px;
+      margin: 0.5rem;
+    }
+  }
+
+  label {
+    text-align: left;
+    padding: 0.25rem 0;
+  }
+  
+  add-product:input {
+    margin: 0.5rem 0;
+    padding: 1rem;
     border: none;
-    margin-bottom: 10px;
-    height: 20%;
-    color:black
+    border-radius: 10px;
   }

@@ -6,7 +6,9 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bulma": "^0.9.4",
     "dom": "^0.0.3",
+    "moment": "^2.30.1",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,7 +21,7 @@
   },
   "scripts": {
     "start": "npm run start:frontend & npm run start:backend",
-    "start:backend":" cd ../backend && pipenv run uvicorn main:app",
+    "start:backend": " cd ../backend && pipenv run uvicorn main:app",
     "start:frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,5 +48,6 @@
   "devDependencies": {
     "concurrency": "^0.1.4",
     "tailwindcss": "^3.3.3"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }

@@ -12,8 +12,8 @@ const Footer = () => {
     <div className='bg-[#104c4e]'>
       <div className='max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-white'>
       <div>
-        <Link to={'/'}><img src="https://res.cloudinary.com/ddei3mzex/image/upload/v1699436420/Image_169h9387811877_zqgrpu.jpg" className="h-12 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
-        <p className='py-4'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id odit ullam iste repellat consequatur libero reiciendis, blanditiis accusantium.</p>
+        <Link to={'/'}><img src="https://res-console.cloudinary.com/ddei3mzex/thumbnails/v1/image/upload/v1709419077/SU1HLTIwMjQwMTA5LVdBMDAwMV9zemoyZmc=/as_is" className="h-4/12 w-3/12 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
+        <p className='py-4'>Shop through our application antytime and reach out to us incase of any enquiries.</p>
         <div className='flex justify-between md:w-[75%] my-6'>
         <a href="http://www.facebook.com" ><FaFacebookSquare size={30} /> </a>
         <a href="http://www.instagram.com" ><FaInstagram size={30} /> </a>
@@ -43,7 +43,7 @@ const Footer = () => {
     <div>
         <h6 className='font-medium text-gray-400'>Company</h6>
         <ul>
-            <Link to={'/about'}><li className='py-2 text-sm'>About</li></Link>
+            <li className='py-2 text-sm'>About</li>
             <li className='py-2 text-sm'>Blog</li>
             <li className='py-2 text-sm'>Jobs</li>
             <li className='py-2 text-sm'>Press</li>

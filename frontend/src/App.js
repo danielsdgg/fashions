@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React,{ useState, useEffect} from 'react';
 import './App.css'
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -6,47 +6,44 @@ import Navbar from './components/Navbar';
 import About from './components/About';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProductsList from './components/ProductsList';
-import Details from './components/Details';
+// import Details from './components/Details';
 import Cart from './components/Cart';
 import Design from './components/Design';
 import Services from './components/Services';
 import Addproduct from './components/Addproduct';
+import Order from './components/Order';
+import Login from './components/Login';
+import Register from './components/Register'
+
 
 function App() {
-  const [product, setProduct] = useState([])
-  const [cartItems, setCartItems] = useState([])
+  const [product, setProduct] = useState("");
+  const [message, setMessage] = useState("");
 
-  // Cart functionalities
-  const handleAddProduct = (product) =>{
-    const productExist = cartItems.find((item) => item.id === product.id);
-    if(productExist){
-      setCartItems(cartItems.map((item) => item.id === product.id ?
-      {...productExist, quantity: productExist.quantity +1}: item))
+  const getWelcomeMessage = async () => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+      }
     }
-    else {
-      setCartItems([...cartItems, {...product, quantity: 1}])
-    }
-  }
+    const response = await fetch('/api', requestOptions);
+    const data = await response.json();
 
-  const handleRemoveProduct = (product) => {
-    const productExist = cartItems.find((item) => item.id === product.id);
-    if(productExist.quantity === 1){
-      setCartItems(cartItems.filter((item) => item.id !== product.id))
-    }
-    else {
-      cartItems.map((item) => item.id === product.id ? {...productExist, quantity: productExist.quantity - 1}: item)
+    if (!response.ok) {
+      console.log("Something messed up")
+    } else {
+      setMessage(data.message);
     }
   }
-
-  const handleCartClearance = () => {
-    setCartItems([])
-  }
-
+  useEffect(() => {
+    getWelcomeMessage()
+  }, [])
 
 // getting all products from the backend
   useEffect(() => {
     const fetching = async () => {
-      const response = await fetch("http://127.0.0.1:8000/products")
+      const response = await fetch("/products")
       const data = await response.json()
       return setProduct(data)
     }
@@ -54,33 +51,91 @@ function App() {
   },[])
 
     // Delete a product functionality
-    function handleDelete(id){
-      fetch(`http://127.0.0.1:8000/deleteproduct/${id}`,{
-        method:"DELETE",
-        headers:{"Content-Type":"application/json"}
+    
+
+    const addSales =(quantity, amount,name) => {
+      fetch("/sales",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          quantity:quantity,
+          amount:amount,
+          name:name
+        })
       })
-      .then(res => res.json())
-      .then(data => setProduct(data))
+      .then(r => {
+        if (r.status === 200){
+          r.json()
+        }
+      })
     }
+
+    const addShipping = (location) => {
+      fetch("/orders",{
+        method:"POST", 
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(location)
+      })
+      .then(r => {
+        if (r.status === 200){
+          // navigate("/payment")
+          r.json()
+        }
+      })
+      .catch(err => console.log(err))
+  
+    }
+
+    const serviceForm = (user) => {
+      fetch("/services",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(user)
+      })
+      .then(r => {
+        if (r.status === 200){
+          console.log("sucess")
+        }
+      })
+    }
+
+    const handleAddtoCart = (name, price, description, image, quantity, total_price) => {
+      // console.log(name, price, description, image, quantity, total_price)
+      fetch("/cart",{
+       method:"POST",
+       headers:{"Content-Type":"application/json", "Accept": "application"},
+       body:JSON.stringify({
+         name:name,
+         price:price,
+         description:description,
+         image:image,
+         quantity:quantity, 
+         total_price:total_price
+       })
+     })
+   }
 
 
   return (
     <div className="App">
       <BrowserRouter>
-      <Navbar/>
+      <Navbar />
+      <p className='italic mt-2 md:text-3xl sm:text-2xl text-1xl text-green-900'>{message}</p>
       <Routes>
-      <Route exact path="/" element = {<Home/>}/>
+      <Route path="/login" element = {<Login/>}/>
+      <Route path="/register" element = {<Register/>}/>
+      <Route path="/" element = {<Home/>}/>
       <Route path='/design' element = {<Design/>}/> 
-      <Route path="/details/:name" element= {<Details handleDelete = {handleDelete}/> }/>
-      <Route path='/services' element = {<Services/>}/>
-      <Route path="/products" element = {<ProductsList product= {product}  cartItems = {cartItems} handleAddProduct ={handleAddProduct}/>} />
-      <Route path='/cart' element = {<Cart cartItems={cartItems} handleAddProduct = {handleAddProduct} handleRemoveProduct = {handleRemoveProduct} handleCartClearance = {handleCartClearance}/>} />
+      {/* <Route path="/details" element= {<Details /> }/> */}
+      <Route path='/services' element = {<Services serviceForm={serviceForm}/>}/>
+      <Route path="/products" element = {<ProductsList product= {product} handleAddtoCart={handleAddtoCart} />} />
+      <Route path='/cart' element = {<Cart addSales={addSales}  />} />
+      <Route path='/order' element = {<Order addShipping={addShipping}  />} />
       <Route path="/about" element= {<About/>}/>
       <Route path='/addproduct' element = {<Addproduct/>}/> 
       </Routes>
       <Footer/>
       </BrowserRouter>
-
     </div>
   );
 }
