@@ -1,165 +1,149 @@
-from sqlalchemy import create_engine, String, Column, Integer, ForeignKey
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+import datetime as _dt
+import sqlalchemy as _sql
+import sqlalchemy.orm as _orm
+import passlib.hash as _hash
+import database as _database
 
-Base = declarative_base()
-
-class Superadmin(Base):
+class Superadmin(_database.Base):
     __tablename__ = 'superadmins'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    email = Column(String())
-    password = Column(String())    
 
-    def __repr__(self):
-        return f'<Superadmin: {self.email}>'
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    email = _sql.Column(_sql.String, unique=True, index=True)
+    hashed_password = _sql.Column(_sql.String)
 
-class Admin(Base):
+    def verify_password(self, password: str):
+        return _hash.bcrypt.verify(password, self.hashed_password)
+
+class Admin(_database.Base):
     __tablename__ = 'admins'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    super_id = Column(Integer, ForeignKey('superadmins.id'))
-    email = Column(String())
-    password = Column(String())
 
-    super = relationship("Superadmin", backref = 'admin')
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    email = _sql.Column(_sql.String, unique=True, index=True)
+    hashed_password = _sql.Column(_sql.String)
 
-    def __repr__(self):
-        return f'<Admin: {self.email}>'
+    def verify_password(self, password: str):
+        return _hash.bcrypt.verify(password, self.hashed_password)
 
-class User(Base):
+class User(_database.Base):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    admin_id = Column(Integer, ForeignKey('admins.id'))
-    super_ad = Column(Integer, ForeignKey('superadmins.id'))
-    username = Column(String())
-    email = Column(String())
-    password = Column(String())
 
-    # product_user=relationship("Products", backref="user")
-    # order_user=relationship("Orders", backref="user")
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    email = _sql.Column(_sql.String, unique=True, index=True)
+    hashed_password = _sql.Column(_sql.String)
 
-    administrator = relationship("Admin", backref = 'user')
-    supp = relationship("Superadmin", backref = 'user')
+    products = _orm.relationship("Products", back_populates="user")
+    profile = _orm.relationship("Profile", back_populates="user")
+    service = _orm.relationship("Service", back_populates="user")
+    reviews = _orm.relationship("Reviews", back_populates="user")
+    orders = _orm.relationship("Orders", back_populates="user")
+    carts = _orm.relationship("Cart", back_populates="user")
 
-    def __repr__(self):
-        return f'<User: {self.email}>'
-    
-class Profile(Base):
+    def verify_password(self, password: str):
+        return _hash.bcrypt.verify(password, self.hashed_password)
+
+class Profile(_database.Base):
     __tablename__ = 'profile'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    users_id = Column(Integer, ForeignKey('users.id'))
-    fname = Column(String())
-    lname = Column(String())
-    email = Column(String())
-    gender = Column(String())
-    contacts = Column(Integer())
-    profilepicture = Column(String())
-    password = Column(Integer())
 
-    def __repr__(self):
-        return f'<User: {self.fname}>'
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    user_id = _sql.Column(_sql.Integer, _sql.ForeignKey("users.id"))
+    first_name = _sql.Column(_sql.String, index=True)
+    last_name = _sql.Column(_sql.String, index=True)
+    email = _sql.Column(_sql.String, index=True)
+    contacts = _sql.Column(_sql.Integer)
+    profilepicture = _sql.Column(_sql.String, index=True, default="")
+    hashed_password = _sql.Column(_sql.String)
 
-class Products(Base):
+    user = _orm.relationship("User", back_populates="profile")
+
+class Products(_database.Base):
     __tablename__ = 'products'
-    id = Column(Integer, primary_key =True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    name = Column(String())
-    description = Column(String())
-    image = Column(String())
-    price = Column(Integer())
 
-    clients = relationship("User", backref = 'product')
-    images = relationship("Images", backref="product")
-    cartt = relationship("Cart", backref = 'product')
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    user_id = _sql.Column(_sql.Integer, _sql.ForeignKey("users.id"))
+    name = _sql.Column(_sql.String, index=True)
+    description = _sql.Column(_sql.String, index=True)
+    image = _sql.Column(_sql.String, index=True, default="")
+    price = _sql.Column(_sql.Integer)
+    date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
+    date_last_updated = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
 
-    def __repr__(self):
-        return f'<Products: {self.name}>'
+    user = _orm.relationship("User", back_populates="products")
+    images = _orm.relationship("Images", back_populates="product")
+    reviews = _orm.relationship("Reviews", back_populates="product")
+    sales = _orm.relationship("Sales", back_populates="product")
+    orders = _orm.relationship("Orders", back_populates="product")
 
-class Images(Base):
+class Images(_database.Base):
     __tablename__ = 'images'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    products_id = Column(Integer, ForeignKey("products.id"))
-    image1 = Column(String())
-    image2 = Column(String())
-    image3 = Column(String())
 
-    def __repr__(self):
-        return f'<Images: {self.id}>'
-    
-class Services(Base):
-    __tablename__ = 'services'
-    id = Column(Integer, primary_key = True, autoincrement = True)
-    user_id = Column(Integer, ForeignKey('users.id'))
-    name = Column(String())
-    email = Column(String())
-    message = Column(String())
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    product_id = _sql.Column(_sql.Integer, _sql.ForeignKey("products.id"))
+    image1 = _sql.Column(_sql.String, index=True, default="")
+    image2 = _sql.Column(_sql.String, index=True, default="")
+    image3 = _sql.Column(_sql.String, index=True, default="")
 
-    userrr = relationship("User", backref='service')
+    product = _orm.relationship("Products", back_populates="images")
 
-    def __repr__(self):
-        return f'<Images: {self.id}>'
+class Service(_database.Base):
+    __tablename__ = 'service'
 
-class Reviews(Base):
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    user_id = _sql.Column(_sql.Integer, _sql.ForeignKey('users.id'))
+    name = _sql.Column(_sql.String, index=True)
+    email = _sql.Column(_sql.String, unique=True, index=True)
+    message = _sql.Column(_sql.String, index=True)
+
+    user = _orm.relationship("User", back_populates='service')
+
+class Reviews(_database.Base):
     __tablename__ = 'reviews'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    product_id = Column(Integer, ForeignKey("products.id"))
-    userr = Column(Integer, ForeignKey('users.id'))
-    comments = Column(String())
-    ratings = Column(Integer())
 
-    product = relationship("Products", backref='review')
-    clientt = relationship("User", backref = 'review')
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    product_id = _sql.Column(_sql.Integer, _sql.ForeignKey("products.id"))
+    user_id = _sql.Column(_sql.Integer, _sql.ForeignKey('users.id'))
+    comments = _sql.Column(_sql.String, index=True)
+    ratings = _sql.Column(_sql.String, index=True)
 
-    def __repr__(self):
-        return f'<Reviews: {self.id}>'
+    product = _orm.relationship("Products", back_populates='reviews')
+    user = _orm.relationship("User", back_populates="reviews")
 
-class Sales(Base):
+class Sales(_database.Base):
     __tablename__ = 'sales'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    product_id=Column(Integer, ForeignKey("products.id"))
-    name = Column(String())
-    quantity = Column(Integer())
-    amount = Column(Integer())
 
-    product=relationship("Products", backref="sale")
-    # cart_sales=relationship("Cart", backref="sale")
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    product_id = _sql.Column(_sql.Integer, _sql.ForeignKey("products.id"))
+    name = _sql.Column(_sql.String, index=True)
+    quantity = _sql.Column(_sql.Integer, index=True)
+    amount = _sql.Column(_sql.Integer, index=True)
 
-    def __repr__(self):
-        return f'<Sales: {self.id}>'
+    product = _orm.relationship("Products", back_populates="sales")
 
-class Cart(Base):
+class Cart(_database.Base):
     __tablename__ = 'carts'
-    id = Column(Integer, primary_key = True)
-    client_id = Column(Integer, ForeignKey("users.id"))
-    product_id = Column(Integer, ForeignKey('products.id'))
-    name = Column(String())
-    description = Column(String())
-    price = Column(Integer())
-    image = Column(String())
-    quantity = Column(Integer())
-    total_price = Column(Integer())
 
-    
-    def __repr__(self):
-        return f'<Cart: {self.id}>'
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    user_id = _sql.Column(_sql.Integer, _sql.ForeignKey("users.id"))
+    name = _sql.Column(_sql.String, index=True)
+    description = _sql.Column(_sql.String, index=True)
+    image = _sql.Column(_sql.String, index=True, default="")
+    price = _sql.Column(_sql.Integer)
+    quantity = _sql.Column(_sql.Integer, index=True)
+    total_price = _sql.Column(_sql.Integer, index=True)
 
-class Orders(Base):
+    user = _orm.relationship("User", back_populates="carts")
+
+class Orders(_database.Base):
     __tablename__ = 'orders'
-    id = Column(Integer, primary_key = True, autoincrement=True)
-    products_id = Column(Integer, ForeignKey("products.id"))
-    user_id = Column(Integer, ForeignKey("users.id"))
-    full_name = Column(String())
-    address = Column(String())
-    city = Column(String())
 
-    product = relationship("Products", backref = 'order')
-    users = relationship("User", backref="order")
+    id = _sql.Column(_sql.Integer, primary_key=True, index=True)
+    product_id = _sql.Column(_sql.Integer, _sql.ForeignKey("products.id"))
+    user_id = _sql.Column(_sql.Integer, _sql.ForeignKey("users.id"))
+    full_name = _sql.Column(_sql.String, index=True)
+    address = _sql.Column(_sql.String, index=True)
+    city = _sql.Column(_sql.String, index=True)
 
-    def __repr__(self):
-        return f'<Orders: {self.id}>'
+    product = _orm.relationship("Products", back_populates="orders")
+    user = _orm.relationship("User", back_populates="orders")
 
-
-engine = create_engine('sqlite:///dan.db')
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind = engine)
-session = Session()
 
 

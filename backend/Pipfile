@@ -15,6 +15,7 @@ pyjwt = "*"
 python-decouple = "*"
 marshmallow = "*"
 webargs = "*"
+databases = "*"
 
 [dev-packages]
 
