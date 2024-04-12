@@ -60,6 +60,7 @@ class Products(_database.Base):
 
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
     user_id = _sql.Column(_sql.Integer, _sql.ForeignKey("users.id"))
+    # admin_id = _sql.Column(_sql.Integer, _sql.ForeignKey("admins.id"))
     name = _sql.Column(_sql.String, index=True)
     description = _sql.Column(_sql.String, index=True)
     image = _sql.Column(_sql.String, index=True, default="")

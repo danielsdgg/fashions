@@ -11,6 +11,9 @@ from fastapi import Depends, HTTPException
 
 oauth2schema = _security.OAuth2PasswordBearer(tokenUrl="/api/token/user")
 
+oauth2schema2 = _security.OAuth2PasswordBearer(tokenUrl="/api/token/admin")
+
+
 # oauth2schema2 = _security.OAuth2PasswordBearer(tokenUrl="/api/token/user")
 
 
@@ -89,7 +92,7 @@ async def create_token(user: _models.User):
     return dict(access_token=token, token_type="bearer")
 
 # function for getting an admin
-async def get_current_admin(db: _orm.Session = _fastapi.Depends(get_db), token: str = _fastapi.Depends(oauth2schema)):
+async def get_current_admin(db: _orm.Session = _fastapi.Depends(get_db), token: str = _fastapi.Depends(oauth2schema2)):
     try:
         payload = _jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
         admin = db.query(_models.Admin).get(payload["id"])
@@ -116,10 +119,18 @@ async def create_product(user: _schemas.User, db: _orm.Session, prod: _schemas.P
     return _schemas.Products.from_orm(prod)
 
 # function that gets all products
-async def get_products(user: _schemas.User, db: _orm.Session):
-    prods = db.query(_models.Products).filter_by(user_id=user.id)
-    # mapping saves from writing a 4-loop where we have to go through each lead
+# Function to get all products, not filtered by user
+async def get_products(db: _orm.Session):
+    prods = db.query(_models.Products).all()  # No filtering by user_id
     return list(map(_schemas.Products.from_orm, prods))
+
+# by user
+# Function to get products by a specific user
+async def get_products_by_user(user_id: int, db: _orm.Session):
+    prods = db.query(_models.Products).filter_by(user_id=user_id).all()
+    return list(map(_schemas.Products.from_orm, prods))
+
+
 
 # product selector
 async def _product_selector(prod_id:int, user: _schemas.User, db: _orm.Session):

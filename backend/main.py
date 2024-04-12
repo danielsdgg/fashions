@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import fastapi.security as _security
 import sqlalchemy.orm as _orm
-import services as _services, schemas as _schemas
+import services as _services, schemas as _schemas, models as _models
 import uvicorn
 from fastapi import HTTPException, Depends
 
@@ -24,6 +24,12 @@ app.add_middleware(
 @app.get("/api", tags=["Home"])
 def root():
     return {"message": "Welcome to Hero-Clothline!"}
+
+@app.get('/api/users', tags=["Admin Operations"], response_model=List[_schemas.User])
+async def get_all_users(admin: _schemas.Admin = _fastapi.Depends(_services.get_current_admin), db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    users = db.query(_models.User).all()
+    return list(map(_schemas.User.from_orm, users))
+
 
 # create admin
 @app.post('/api/admins', tags=["Credentials"])
@@ -80,8 +86,13 @@ async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_
 # [Products]
 # return all products
 @app.get('/products', tags=["GET ALL"], response_model=List[_schemas.Products])
-async def get_products(user: _schemas.User=_fastapi.Depends(_services.get_current_user), db: _orm.Session=_fastapi.Depends(_services.get_db)):
-    return await _services.get_products(user=user, db=db)
+async def get_all_products(db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    return await _services.get_products(db=db)
+
+# New endpoint to fetch products by a specific user
+@app.get('/products/by-user/{user_id}', tags=["GET BY USER"], response_model=List[_schemas.Products])
+async def get_products_by_user(user_id: int, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    return await _services.get_products_by_user(user_id=user_id, db=db)
 
 # retutn a single product
 @app.get('/products/{prod_id}', tags=["GET ONE"], status_code=200)
