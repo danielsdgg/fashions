@@ -3,6 +3,8 @@ import ProductsItem from './ProductsItem';
 import { ShoppingCart } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 import Cart from './Cart';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const ProductsList = ({ product, handleAddtoCart, handleDelete }) => {
   const [search, setSearch] = useState([]);
@@ -16,34 +18,38 @@ const ProductsList = ({ product, handleAddtoCart, handleDelete }) => {
 
   // search functionality
   const filtering = () => {
-    const filteredProducts = product && product.filter((pro) => pro.name.toLowerCase().includes(name.toLowerCase()));
-    console.log(filteredProducts);
+    const filteredProducts = product.filter((pro) => pro.name.toLowerCase().includes(name.toLowerCase()));
     setSearch(filteredProducts);
   };
 
-  console.log(product)
   const handleSubmit = (e) => {
     e.preventDefault();
-    filtering();
-    console.log(search);
+    if (name.trim() === '') {
+      // Clear search results if the search query is empty
+      setSearch([]);
+    } else {
+      filtering();
+    }
   };
 
   let displayProducts;
 
-  if (Array.isArray(product)) {
-    displayProducts = product.map(phone => (
+  if (search.length > 0) {
+    displayProducts = search.map((phone) => (
       <ProductsItem key={phone.id} name={phone.name} description={phone.description} price={phone.price} image={phone.image} />
     ));
   } else {
-    // Handle case where product is not an array
-    displayProducts = <p>No products available</p>;
+    // If no search results, display message or all products
+    displayProducts = product.map((phone) => (
+      <ProductsItem key={phone.id} name={phone.name} description={phone.description} price={phone.price} image={phone.image} />
+    ));
   }
 
   return (
+    <>
+    <Navbar/>
     <div className='bg-gray-300 h-full w-full'>
-      <div className="prods">   
-        {displayProducts}
-      </div>
+
       <form onSubmit={handleSubmit}>
         {/* <h4 className='font-extrabold md:text-1xl sm:text-1xl italic underline'>search for clothes</h4> */}
         <br></br>
@@ -74,6 +80,8 @@ const ProductsList = ({ product, handleAddtoCart, handleDelete }) => {
       <hr className='my-6 w-full border-gray-200 sm:mx-auto dark:border-gray-900 lg:my-2' />
       <div className='grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4'>{displayProducts}</div>
     </div>
+    <Footer />
+    </>
   );
 };
 

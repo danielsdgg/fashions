@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 import ErrorMessage from './ErrorMessage'
+import { Link } from 'react-router-dom'
 
-const Register = (props) => {
+const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmationPassword, setConfirmationPassword] = useState("")
@@ -41,11 +42,13 @@ const Register = (props) => {
     
 
   return (
-    <div className='auth-form-container'>
-        <h1 className="text-center font-bold text-2xl">Register</h1>
-        <form className='register-form' onSubmit={handleSubmit}>
+    <div className='column'>
+        <form className='box' onSubmit={handleSubmit}>
+            <h1 className="title has-text-centered">Register</h1>
             {/* Email field */}
-                <label htmlFor="label">Email Address</label>
+            <div className="field">
+                <label className="label">Email Address</label>
+                <div className="control">
                     <input
                      type="email"
                      placeholder='Enter Email'
@@ -54,8 +57,12 @@ const Register = (props) => {
                      className='input'
                      required
                     />
+                </div>
+            </div>
             {/* Password field */}
-                <label htmlFor="password">Password</label>
+            <div className="field">
+                <label className="label">Password</label>
+                <div className="control">
                     <input
                      type="password"
                      placeholder='Enter Password'
@@ -64,23 +71,30 @@ const Register = (props) => {
                      className='input'
                      required
                     />
+                </div>
+            </div>
             {/* confirmation password field */}
-                <label htmlFor="confirmationPassword">Confirm Password</label>
+            <div className="field">
+                <label className="label">Confirm Password</label>
+                <div className="control">
                     <input
                      type="password"
-                     placeholder='Confirm password'
+                     placeholder='Enter password'
                      value={confirmationPassword}
                      onChange={(e) => setConfirmationPassword(e.target.value)}
                      className='input'
                      required
                     />
+                </div>
+            </div>
             <ErrorMessage message={errorMessage}/>
             <br/>
             <button className="button is-primary" type='submit'>
                 Register
             </button>
+            <Link to={'/'}><p className='mt-4 font-semibold'>Already have an account? Login</p></Link>
+
         </form>
-        <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
     </div>
   )
 }

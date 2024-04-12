@@ -1,8 +1,6 @@
 import React,{ useState, useEffect} from 'react';
 import './App.css'
-import Footer from './components/Footer';
 import Home from './components/Home';
-import Navbar from './components/Navbar';
 import About from './components/About';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProductsList from './components/ProductsList';
@@ -14,11 +12,14 @@ import Addproduct from './components/Addproduct';
 import Order from './components/Order';
 import Login from './components/Login';
 import Register from './components/Register'
+// import { UserContext } from './context/UserContext';
 
 
 function App() {
   const [product, setProduct] = useState("");
   const [message, setMessage] = useState("");
+  // const [token] = useContext(UserContext);
+
 
   const getWelcomeMessage = async () => {
     const requestOptions = {
@@ -41,16 +42,23 @@ function App() {
   }, [])
 
 // getting all products from the backend
-  useEffect(() => {
-    const fetching = async () => {
-      const response = await fetch("/products")
-      const data = await response.json()
-      return setProduct(data)
+useEffect(() => {
+  const fetching = async () => {
+    try {
+      // Make a GET request to the /products endpoint
+      const response = await fetch("/products");
+      // Parse the JSON data from the response
+      const data = await response.json();
+      // Update the state with the fetched products
+      setProduct(data);
+    } catch (error) {
+      // Handle any errors that occur during the fetch
+      console.error("Error fetching products:", error);
     }
-    fetching()
-  },[])
-
-    // Delete a product functionality
+  };
+  // Call the fetching function when the component mounts (empty dependency array)
+  fetching();
+}, []); // Empty dependency array ensures the effect runs only once after the component mounts
     
 
     const addSales =(quantity, amount,name) => {
@@ -94,7 +102,7 @@ function App() {
       })
       .then(r => {
         if (r.status === 200){
-          console.log("sucess")
+          console.log("success")
         }
       })
     }
@@ -118,24 +126,26 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-      <Navbar />
-      <p className='italic mt-2 md:text-3xl sm:text-2xl text-1xl text-green-900'>{message}</p>
-      <Routes>
-      <Route path="/login" element = {<Login/>}/>
-      <Route path="/register" element = {<Register/>}/>
-      <Route path="/" element = {<Home/>}/>
-      <Route path='/design' element = {<Design/>}/> 
-      {/* <Route path="/details" element= {<Details /> }/> */}
-      <Route path='/services' element = {<Services serviceForm={serviceForm}/>}/>
-      <Route path="/products" element = {<ProductsList product= {product} handleAddtoCart={handleAddtoCart} />} />
-      <Route path='/cart' element = {<Cart addSales={addSales}  />} />
-      <Route path='/order' element = {<Order addShipping={addShipping}  />} />
-      <Route path="/about" element= {<About/>}/>
-      <Route path='/addproduct' element = {<Addproduct/>}/> 
-      </Routes>
-      <Footer/>
-      </BrowserRouter>
+      <div className='cols'>
+
+            <div className='cols2'>
+              <BrowserRouter>
+              <Routes>
+                <Route exact path="/" element={<Login title={message}/>} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/products" element={<ProductsList product={product} handleAddtoCart={handleAddtoCart}/>} />
+                <Route path="/design" element={<Design />} />
+                <Route path="/services" element={<Services serviceForm={serviceForm} />} />
+                <Route path="/cart" element={<Cart addSales={addSales} />} />
+                <Route path="/order" element={<Order addShipping={addShipping} />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/addproduct" element={<Addproduct />} />              </Routes>
+              </BrowserRouter>
+                {/* <Register /> <Login/> */}
+              </div>  
+
+        </div>
     </div>
   );
 }

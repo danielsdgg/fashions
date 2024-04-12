@@ -14,7 +14,7 @@ const Footer = () => {
       <div>
         <Link to={'/'}><img src="https://res-console.cloudinary.com/ddei3mzex/thumbnails/v1/image/upload/v1709419077/SU1HLTIwMjQwMTA5LVdBMDAwMV9zemoyZmc=/as_is" className="h-4/12 w-3/12 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
         <p className='py-4'>Shop through our application antytime and reach out to us incase of any enquiries.</p>
-        <div className='flex justify-between md:w-[75%] my-6'>
+        <div className='flex justify-between md:w-[75%] my-6 text-white'>
         <a href="http://www.facebook.com" ><FaFacebookSquare size={30} /> </a>
         <a href="http://www.instagram.com" ><FaInstagram size={30} /> </a>
         <a href="http://www.twitter.com" ><FaTwitterSquare size={30} /> </a>

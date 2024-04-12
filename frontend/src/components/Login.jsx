@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 import ErrorMessage from './ErrorMessage'
 import { UserContext } from '../context/UserContext'
+import { Link } from 'react-router-dom'
 
-const Login = (props) => {
+const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
@@ -32,11 +33,13 @@ const Login = (props) => {
 
 
   return (
-    <div className='auth-form-container'>
-        <h1 className="text-center font-bold text-2xl">LOGIN</h1>
-        <form className='login-form' onSubmit={handleSubmit}>
-            {/* Email field */}
-            <label htmlFor="label">Email Address</label>
+    <div className='column'>
+    <form className='box' onSubmit={handleSubmit}>
+        <h1 className="title has-text-centered">Login</h1>
+        {/* Email field */}
+        <div className="field">
+            <label className="label">Email Address</label>
+            <div className="control">
                 <input
                  type="email"
                  placeholder='Enter Email'
@@ -45,8 +48,12 @@ const Login = (props) => {
                  className='input'
                  required
                 />
-                {/* Password field */}
-            <label htmlFor="label">Password</label>
+            </div>
+        </div>
+        {/* Password field */}
+        <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
                 <input
                  type="password"
                  placeholder='Enter Password'
@@ -55,13 +62,15 @@ const Login = (props) => {
                  className='input'
                  required
                 />
+            </div>
+        </div>
         <ErrorMessage message={errorMessage}/>
         <br/>
         <button className="button is-primary" type='submit'>
             Login
         </button>
+        <Link to={'/register'}><p className='mt-4 font-semibold'>Don't have an account? Sign up here</p></Link>
     </form>
-    <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
 </div>
   )
 }

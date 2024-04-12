@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Navbar from './Navbar'
+import Footer from './Footer'
 
 const Services = () => {
 
@@ -9,7 +11,7 @@ const Services = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        fetch("http://127.0.0.1:8000/services",{
+        fetch("/services",{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -23,6 +25,8 @@ const Services = () => {
 
 
   return (
+    <>
+    <Navbar/>
     <div className='all'>
 
         {/* First Section */}
@@ -65,6 +69,8 @@ const Services = () => {
     </div>
 
     </div>
+    <Footer/>
+    </>
   )
 }
 

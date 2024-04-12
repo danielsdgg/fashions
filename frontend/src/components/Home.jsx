@@ -1,9 +1,13 @@
 import React from 'react';
 import First from './Homepage/First';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 
 const Home = () => {
   return (
+    <>
+    <Navbar/>
     <div>
       <div className="first">
         <First/>
@@ -32,7 +36,7 @@ const Home = () => {
                     <p>Internally, but also within the larger communities in which we are active. I am excited to be launching this website since it will connect us more to our clients. We are here to serve you. Enjoy..!</p>
                 </p>
             </div>
-            <img className='w-[500px] mx-auto rounded-3xl my-4' src='https://res-console.cloudinary.com/ddei3mzex/thumbnails/v1/image/upload/v1709418342/Q0VPX2Fya3Jkaw==/as_is' alt='mind'/>
+            <img className='w-[500px] mx-auto rounded-3xl my-4' src='https://res.cloudinary.com/ddei3mzex/image/upload/v1709418342/CEO_arkrdk.jpg' alt='mind'/>
 
         </div>
     </div>
@@ -41,16 +45,9 @@ const Home = () => {
     <div className='w-full bg-violet-200 text-black py-16 px-4 text-center md:text-6xl sm:text-3xl text-3xl'>
         <p>Become part of our mission and join<b> Hero-Cloth-Line</b></p>
     </div>
-
-
-
     </div>
-    
-
- 
-
-
-
+    <Footer />
+    </>
   )
 }
 

@@ -7,7 +7,7 @@ function ProductsItem({  name, description, image, price, handleAddtoCart, handl
 
   return (
     <div className=' cadii hover:scale-110 duration-700'> {/* hover:scale-90 duration-700 */}
-        <Link to={`/details/${name}`}><img className=' imagee cursor-pointer' src={image} alt='name'/></Link>
+        <img className=' imagee cursor-pointer' src={image} alt='name'/>
         <h3 className='text-center font-normal md:text-2xl sm:text-1xl'>{name}</h3>
         <p className='text-center font-light'>{description}</p>
         <p className='text-center p-2 font-extrabold'>Kshs: {price}</p><br></br>

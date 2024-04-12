@@ -1,8 +1,14 @@
 import React from 'react'
+import Navbar from './Navbar'
+import Footer from './Footer'
 
 const Design = () => {
   return (
-    // First design-section
+    <>
+    <Navbar/>
+    <div className='w-full bg-violet-200 text-black py-16 px-4 text-center md:text-6xl sm:text-3xl text-3xl'>
+        <p>Our latest designs and fashion shows<b> </b></p>
+    </div>
     <div className='w-full bg-black py-16 px-12'>
     <div className='max-w-[100%] mx-auto grid md:grid-cols-2'>
       <img className='w-[500px] rounded-3xl mx-auto my-4' src='https://res.cloudinary.com/ddei3mzex/image/upload/v1694210974/fash_qqif6b.jpg' alt='imagery'/>
@@ -14,6 +20,8 @@ const Design = () => {
       </div>
     </div>
   </div>
+  <Footer />
+  </>
   )
 }
 
