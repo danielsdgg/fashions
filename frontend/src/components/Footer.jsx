@@ -12,7 +12,7 @@ const Footer = () => {
     <div className='bg-[#104c4e]'>
       <div className='max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-white'>
       <div>
-        <Link to={'/'}><img src="https://res-console.cloudinary.com/ddei3mzex/thumbnails/v1/image/upload/v1709419077/SU1HLTIwMjQwMTA5LVdBMDAwMV9zemoyZmc=/as_is" className="h-4/12 w-3/12 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
+        <Link to={'/'}><img src="https://res.cloudinary.com/ddei3mzex/image/upload/v1709419077/IMG-20240109-WA0001_szj2fg.jpg" className="h-4/12 w-3/12 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
         <p className='py-4'>Shop through our application antytime and reach out to us incase of any enquiries.</p>
         <div className='flex justify-between md:w-[75%] my-6 text-white'>
         <a href="http://www.facebook.com" ><FaFacebookSquare size={30} /> </a>

@@ -11,7 +11,7 @@ const First = () => {
                    Beatae cum excepturi ad, itaque repellendus quibusdam rem voluptatum quae ullam, reprehenderit ratione aspernatur doloremque qui assumenda nihil officia, fugiat exercitationem autem?</p>
 
             </div>
-            <img className='w-[500px] mx-auto rounded-3xl my-4' src='https://res-console.cloudinary.com/ddei3mzex/thumbnails/v1/image/upload/v1709419077/SU1HLTIwMjQwMTA5LVdBMDAwMV9zemoyZmc=/as_is' alt=''/>
+            <img className='w-[500px] mx-auto rounded-3xl my-4' src='https://res.cloudinary.com/ddei3mzex/image/upload/v1709419077/IMG-20240109-WA0001_szj2fg.jpg' alt=''/>
         </div>
     </div>
   )

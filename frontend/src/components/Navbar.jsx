@@ -17,7 +17,7 @@ const Navbar = ({title}) => {
 
   return (
     <div className='flex justify-between items-center h-24 w-full mx-auto px-4 text-white bg-[#104c4e]'>
-      <Link to={'/'}> <img src="https://res-console.cloudinary.com/ddei3mzex/thumbnails/v1/image/upload/v1709419077/SU1HLTIwMjQwMTA5LVdBMDAwMV9zemoyZmc=/as_is" className="h-8 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
+      <Link to={'/'}> <img src="https://res.cloudinary.com/ddei3mzex/image/upload/v1709419077/IMG-20240109-WA0001_szj2fg.jpg" className="h-8 mr-2 cursor-pointer" alt="Fashion Design" /></Link>
       <span className="w-full text-2xl font-semibold whitespace-nowrap text-white cursor-pointer">Hero-Cloth-line</span>
       <ul className='hidden md:flex'>
         <Link to={'/home'}><li className='text-white p-4 cursor-pointer'>Home</li></Link>
