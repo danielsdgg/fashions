@@ -6,7 +6,7 @@ import Cart from './Cart';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-const ProductsList = ({ product, handleAddtoCart, handleDelete }) => {
+const ProductsList = ({ product, handleAddtoCart }) => {
   const [search, setSearch] = useState([]);
   const [name, setName] = useState('');
   const [show, setShow] = useState(false)
@@ -36,12 +36,12 @@ const ProductsList = ({ product, handleAddtoCart, handleDelete }) => {
 
   if (search.length > 0) {
     displayProducts = search.map((phone) => (
-      <ProductsItem key={phone.id} name={phone.name} description={phone.description} price={phone.price} image={phone.image} />
+      <ProductsItem key={phone.id} name={phone.name} description={phone.description} price={phone.price} image={phone.image} quantity={phone.quantity} total_price={phone.total_price} />
     ));
   } else {
     // If no search results, display message or all products
     displayProducts = product.map((phone) => (
-      <ProductsItem key={phone.id} name={phone.name} description={phone.description} price={phone.price} image={phone.image} />
+      <ProductsItem key={phone.id} name={phone.name} description={phone.description} price={phone.price} image={phone.image} quantity={phone.quantity} total_price={phone.total_price} />
     ));
   }
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 function ProductsItem({  name, description, image, price, handleAddtoCart, handleDelete}) {
   const quantity = 1
@@ -12,13 +11,13 @@ function ProductsItem({  name, description, image, price, handleAddtoCart, handl
         <p className='text-center font-light'>{description}</p>
         <p className='text-center p-2 font-extrabold'>Kshs: {price}</p><br></br>
 
-        <Link to={''}><button onClick={() => handleAddtoCart(name,description,price,image,quantity,total)} className='carttt'>Add to Cart</button> </Link>
+        <button onClick={() => handleAddtoCart(name,description,price,image,quantity,total)} className='carttt'>Add to Cart</button> 
         <br></br><br></br>
 
         <button className='view'>Update Product</button>
         <br></br><br></br>
 
-        <Link to={''}><button onClick={() => handleDelete()} className='del'>Delete Product</button></Link>
+        <button onClick={() => handleDelete()} className='del'>Delete Product</button>
 
     </div>
   )

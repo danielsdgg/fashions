@@ -12,12 +12,23 @@ import Addproduct from './components/Addproduct';
 import Order from './components/Order';
 import Login from './components/Login';
 import Register from './components/Register'
+import ProductsItem from './components/ProductsItem';
 // import { UserContext } from './context/UserContext';
 
 
-function App() {
+function App({token, id, setErrorMessage}) {
   const [product, setProduct] = useState("");
   const [message, setMessage] = useState("");
+
+  // cart
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [total_price, setTotalPrice] = useState("")
+
+
   // const [token] = useContext(UserContext);
 
 
@@ -107,21 +118,39 @@ useEffect(() => {
       })
     }
 
-    const handleAddtoCart = (name, price, description, image, quantity, total_price) => {
-      // console.log(name, price, description, image, quantity, total_price)
-      fetch("/cart",{
-       method:"POST",
-       headers:{"Content-Type":"application/json", "Accept": "application"},
-       body:JSON.stringify({
-         name:name,
-         price:price,
-         description:description,
-         image:image,
-         quantity:quantity, 
-         total_price:total_price
-       })
-     })
-   }
+    const cleanFormData = () => {
+      setName("");
+      setDescription("");
+      setImage("");
+      setPrice("");
+      setQuantity("");
+      setTotalPrice("")
+    }
+
+    const handleAddtoCart = async (e) => {
+      e.preventDefault();
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          name: name,
+          description: description,
+          image: image,
+          price: price,
+          quantity: quantity,
+          total_price: total_price,
+        }),
+      };
+      const response = await fetch("/cart", requestOptions);
+      if (!response.ok) {
+        setErrorMessage("Something went wrong when adding to cart");
+      } else {
+        cleanFormData();
+      }
+    }
 
 
   return (
@@ -135,6 +164,7 @@ useEffect(() => {
                 <Route path="/register" element={<Register />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/products" element={<ProductsList product={product} handleAddtoCart={handleAddtoCart}/>} />
+                <Route path="/produc" element={<ProductsItem handleAddtoCart={handleAddtoCart}/>} />
                 <Route path="/design" element={<Design />} />
                 <Route path="/services" element={<Services serviceForm={serviceForm} />} />
                 <Route path="/cart" element={<Cart addSales={addSales} />} />
